@@ -3,7 +3,6 @@ using Mashinin.DTOs.MakeDTOs;
 using Mashinin.Entities;
 using Mashinin.Exceptions;
 using Mashinin.Interfaces;
-using Newtonsoft.Json;
 
 namespace Mashinin.Implementations
 {
@@ -49,6 +48,83 @@ namespace Mashinin.Implementations
                 throw new NotFoundException("Make is not found.");
 
             return make;
+        }
+
+        public async Task CreateAsync(MakeCreateDTO makeCreateDTO)
+        {
+            if (makeCreateDTO is null)
+                throw new BadRequestException("makeCreateDTO is null");
+
+            if (await _unitOfWork.MakeRepository.DoesExistAsync(x =>
+            x.Name.ToLower() == makeCreateDTO.Name.Trim().ToLower() ||
+            x.TurboAzId == makeCreateDTO.TurboAzId))
+                throw new RecordDuplicateException($"Make exists with Name {makeCreateDTO.Name} and TurboAzId {makeCreateDTO.TurboAzId}");
+
+            Make make = _mapper.Map<Make>(makeCreateDTO);
+
+            await _unitOfWork.MakeRepository.AddAsync(make);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UpdateAsync(MakeUpdateDTO makeUpdateDTO)
+        {
+            if (makeUpdateDTO is null)
+                throw new BadRequestException("makeUpdateDTO is null");
+
+            //id is not the same, but values are the same
+            if (await _unitOfWork.MakeRepository.DoesExistAsync(x =>
+            x.Id != makeUpdateDTO.Id &&
+            (x.Name.ToLower() == makeUpdateDTO.Name.Trim().ToLower() ||
+            x.TurboAzId == makeUpdateDTO.TurboAzId)))
+                throw new RecordDuplicateException($"Make exists with Name {makeUpdateDTO.Name} and TurboAzId {makeUpdateDTO.TurboAzId}");
+
+            Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == makeUpdateDTO.Id);
+
+            if (make is null)
+                throw new NotFoundException("Make is not found.");
+
+            make.Name = makeUpdateDTO.Name.Trim();
+            make.TurboAzId = makeUpdateDTO.TurboAzId;
+            make.UpdatedAt = DateTime.UtcNow.AddHours(4);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id);
+
+            if (make is null)
+                throw new NotFoundException("Make is not found.");
+
+            make.IsDeleted = true;
+            make.DeletedAt = DateTime.UtcNow.AddHours(4);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task RestoreAsync(int id)
+        {
+            Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id);
+
+            if (make is null)
+                throw new NotFoundException("Make is not found.");
+
+            make.IsDeleted = false;
+            make.DeletedAt = null;
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task DeleteForeverAsync(int id)
+        {
+            Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id);
+
+            if (make is null)
+                throw new NotFoundException("Make is not found.");
+
+            _unitOfWork.MakeRepository.Remove(make);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Mashinin.Implementations;
+﻿using FluentValidation;
+using Mashinin.DTOs.MakeDTOs;
+using Mashinin.Implementations;
 using Mashinin.Interfaces;
 using Mashinin.Logger;
 
@@ -18,6 +20,8 @@ namespace Mashinin.Extensions
             services.AddSingleton<ILoggerManager, LoggerManager>();
 
             //fluent validation
+            services.AddScoped<IValidator<MakeCreateDTO>, MakeCreateDTOValidator>();
+            services.AddScoped<IValidator<MakeUpdateDTO>, MakeUpdateDTOValidator>();
         }
     }
 }
