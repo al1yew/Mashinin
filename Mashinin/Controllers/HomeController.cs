@@ -17,8 +17,6 @@ namespace Mashinin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await _homeService.CreateModels();
-
             return Ok();
         }
     }

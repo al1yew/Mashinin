@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Mashinin.Implementations;
+﻿using Mashinin.Implementations;
 using Mashinin.Interfaces;
 using Mashinin.Logger;
 
@@ -12,6 +11,7 @@ namespace Mashinin.Extensions
             //services
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IHomeService, HomeService>();
+            services.AddScoped<IMakeService, MakeService>();
 
 
             //logger
