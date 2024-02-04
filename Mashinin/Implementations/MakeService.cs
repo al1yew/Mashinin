@@ -3,7 +3,9 @@ using Mashinin.DTOs.MakeDTOs;
 using Mashinin.Entities;
 using Mashinin.Exceptions;
 using Mashinin.Interfaces;
+using Mashinin.Localization;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Localization;
 
 namespace Mashinin.Implementations
 {
@@ -13,11 +15,14 @@ namespace Mashinin.Implementations
         private readonly IMapper _mapper;
         private readonly IMemoryCache _memoryCache;
         private readonly string cacheKey = "Makes";
-        public MakeService(IUnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache)
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
+
+        public MakeService(IUnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache, IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _memoryCache = memoryCache;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         public async Task CreateMakes()

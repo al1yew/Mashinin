@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Mashinin;
 using Mashinin.Extensions;
 using Mashinin.Logger;
+using Mashinin.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 
@@ -21,17 +22,17 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 
 LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy(name: "VINCODE_API",
-//        policy =>
-//        {
-//            //policy.AllowAnyHeader()
-//            //      .AllowAnyMethod()
-//            //      .WithOrigins("https://vincode.az");
-//            policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-//        });
-//});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "VINCODE_API",
+        policy =>
+        {
+            //policy.AllowAnyHeader()
+            //      .AllowAnyMethod()
+            //      .WithOrigins("");
+            policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        });
+});
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -39,7 +40,7 @@ builder.Services.AddFluentValidationAutoValidation();
 
 //builder.Services.IdentityBuilder();
 
-//builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 //builder.Services.AddAuth(configuration);
 
@@ -62,7 +63,7 @@ if (app.Environment.IsDevelopment())
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ExceptionHandling(logger);
 
-//app.UseMiddleware<LanguageMiddleware>();
+app.UseMiddleware<LanguageMiddleware>();
 
 //app.UseStaticFiles();
 
@@ -72,7 +73,7 @@ app.UseRouting();
 
 //app.UseAuthorization();
 
-//app.UseCors("VINCODE_API");
+app.UseCors("VINCODE_API");
 
 app.MapControllers();
 

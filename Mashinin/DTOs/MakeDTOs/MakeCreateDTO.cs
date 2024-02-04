@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using Mashinin.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace Mashinin.DTOs.MakeDTOs
 {
@@ -10,13 +12,13 @@ namespace Mashinin.DTOs.MakeDTOs
 
     public class MakeCreateDTOValidator : AbstractValidator<MakeCreateDTO>
     {
-        public MakeCreateDTOValidator()
+        public MakeCreateDTOValidator(IStringLocalizer<SharedResource> stringLocalizer)
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Name is required!");
+                 .NotEmpty().WithMessage(x => stringLocalizer["nameRequired"]);
 
             RuleFor(x => x.TurboAzId)
-                .NotEmpty().WithMessage("TurboAzId is required!");
+                .NotEmpty().WithMessage(x => "TurboAzId " + stringLocalizer["required"]);
         }
     }
 }
