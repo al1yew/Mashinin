@@ -86,7 +86,7 @@ namespace Mashinin.Implementations
             ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id));
 
             if (model is null)
-                throw new NotFoundException("Model is not found.");
+                throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
 
             return model;
         }
@@ -96,7 +96,7 @@ namespace Mashinin.Implementations
             ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.TurboAzId == id));
 
             if (model is null)
-                throw new NotFoundException("Model is not found.");
+                throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
 
             return model;
         }
@@ -104,12 +104,12 @@ namespace Mashinin.Implementations
         public async Task CreateAsync(ModelCreateDTO modelCreateDTO)
         {
             if (modelCreateDTO is null)
-                throw new BadRequestException("modelCreateDTO is null");
+                throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x => x.Id == modelCreateDTO.MakeId);
 
             if (!makeExists)
-                throw new NotFoundException($"Make with ID {modelCreateDTO.MakeId} is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             bool modelExists = await _unitOfWork.ModelRepository.DoesExistAsync(x =>
             x.Name.ToLower() == modelCreateDTO.Name.Trim().ToLower() &&
@@ -117,7 +117,7 @@ namespace Mashinin.Implementations
             x.MakeId == modelCreateDTO.MakeId);
 
             if (modelExists)
-                throw new RecordDuplicateException($"Model exists with Name {modelCreateDTO.Name}, TurboAzId {modelCreateDTO.TurboAzId}, and MakeId {modelCreateDTO.MakeId}");
+                throw new RecordDuplicateException(string.Format(_sharedLocalizer["modelExists"], modelCreateDTO.Name, modelCreateDTO.TurboAzId, modelCreateDTO.MakeId));
 
             Model model = _mapper.Map<Model>(modelCreateDTO);
 
@@ -129,12 +129,12 @@ namespace Mashinin.Implementations
         public async Task UpdateAsync(ModelUpdateDTO modelUpdateDTO)
         {
             if (modelUpdateDTO is null)
-                throw new BadRequestException("modelUpdateDTO is null");
+                throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x => x.Id == modelUpdateDTO.MakeId);
 
             if (!makeExists)
-                throw new NotFoundException($"Make with ID {modelUpdateDTO.MakeId} is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             //id is not the same, but values are the same
             bool modelExists = await _unitOfWork.ModelRepository.DoesExistAsync(x =>
@@ -144,12 +144,12 @@ namespace Mashinin.Implementations
             x.MakeId == modelUpdateDTO.MakeId);
 
             if (modelExists)
-                throw new RecordDuplicateException($"Model exists with Name {modelUpdateDTO.Name}, TurboAzId {modelUpdateDTO.TurboAzId}, and MakeId {modelUpdateDTO.MakeId}");
+                throw new RecordDuplicateException(string.Format(_sharedLocalizer["modelExists"], modelUpdateDTO.Name, modelUpdateDTO.TurboAzId, modelUpdateDTO.MakeId));
 
             Model model = await _unitOfWork.ModelRepository.GetAsync(x => x.Id == modelUpdateDTO.Id);
 
             if (model is null)
-                throw new NotFoundException("Model is not found.");
+                throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
 
             model.Name = modelUpdateDTO.Name.Trim();
             model.TurboAzId = modelUpdateDTO.TurboAzId;
@@ -166,7 +166,7 @@ namespace Mashinin.Implementations
             Model model = await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id);
 
             if (model is null)
-                throw new NotFoundException("Model is not found.");
+                throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
 
             model.IsDeleted = true;
             model.DeletedAt = DateTime.UtcNow.AddHours(4);
@@ -180,7 +180,7 @@ namespace Mashinin.Implementations
             Model model = await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id);
 
             if (model is null)
-                throw new NotFoundException("Model is not found.");
+                throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
 
             model.IsDeleted = false;
             model.DeletedAt = null;
@@ -194,7 +194,7 @@ namespace Mashinin.Implementations
             Model model = await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id);
 
             if (model is null)
-                throw new NotFoundException("Model is not found.");
+                throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
 
             _unitOfWork.ModelRepository.Remove(model);
             await _unitOfWork.CommitAsync();

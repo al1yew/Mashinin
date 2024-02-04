@@ -75,7 +75,7 @@ namespace Mashinin.Implementations
             MakeGetDTO make = _mapper.Map<MakeGetDTO>(await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id, "Models"));
 
             if (make is null)
-                throw new NotFoundException("Make is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             return make;
         }
@@ -85,7 +85,7 @@ namespace Mashinin.Implementations
             MakeGetDTO make = _mapper.Map<MakeGetDTO>(await _unitOfWork.MakeRepository.GetAsync(x => x.TurboAzId == id, "Models"));
 
             if (make is null)
-                throw new NotFoundException("Make is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             return make;
         }
@@ -93,14 +93,14 @@ namespace Mashinin.Implementations
         public async Task CreateAsync(MakeCreateDTO makeCreateDTO)
         {
             if (makeCreateDTO is null)
-                throw new BadRequestException("makeCreateDTO is null");
+                throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x =>
             x.Name.ToLower() == makeCreateDTO.Name.Trim().ToLower() &&
             x.TurboAzId == makeCreateDTO.TurboAzId);
 
             if (makeExists)
-                throw new RecordDuplicateException($"Make exists with Name {makeCreateDTO.Name} and TurboAzId {makeCreateDTO.TurboAzId}");
+                throw new RecordDuplicateException(string.Format(_sharedLocalizer["makeExists"], makeCreateDTO.Name, makeCreateDTO.TurboAzId));
 
             Make make = _mapper.Map<Make>(makeCreateDTO);
 
@@ -112,7 +112,7 @@ namespace Mashinin.Implementations
         public async Task UpdateAsync(MakeUpdateDTO makeUpdateDTO)
         {
             if (makeUpdateDTO is null)
-                throw new BadRequestException("makeUpdateDTO is null");
+                throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
             //id is not the same, but values are the same
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x =>
@@ -121,12 +121,12 @@ namespace Mashinin.Implementations
             x.TurboAzId == makeUpdateDTO.TurboAzId));
 
             if (makeExists)
-                throw new RecordDuplicateException($"Make exists with Name {makeUpdateDTO.Name} and TurboAzId {makeUpdateDTO.TurboAzId}");
+                throw new RecordDuplicateException(string.Format(_sharedLocalizer["makeExists"], makeUpdateDTO.Name, makeUpdateDTO.TurboAzId));
 
             Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == makeUpdateDTO.Id);
 
             if (make is null)
-                throw new NotFoundException("Make is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             make.Name = makeUpdateDTO.Name.Trim();
             make.TurboAzId = makeUpdateDTO.TurboAzId;
@@ -142,7 +142,7 @@ namespace Mashinin.Implementations
             Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id);
 
             if (make is null)
-                throw new NotFoundException("Make is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             make.IsDeleted = true;
             make.DeletedAt = DateTime.UtcNow.AddHours(4);
@@ -156,7 +156,7 @@ namespace Mashinin.Implementations
             Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id);
 
             if (make is null)
-                throw new NotFoundException("Make is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             make.IsDeleted = false;
             make.DeletedAt = null;
@@ -170,7 +170,7 @@ namespace Mashinin.Implementations
             Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id);
 
             if (make is null)
-                throw new NotFoundException("Make is not found.");
+                throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             _unitOfWork.MakeRepository.Remove(make);
             await _unitOfWork.CommitAsync();

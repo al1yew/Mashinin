@@ -75,7 +75,7 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpHead("{id}")]
+        [HttpHead("{id}")] // does not return exception message
         public async Task<IActionResult> Head(int id)
         {
             await _modelService.DeleteForeverAsync(id);
