@@ -35,6 +35,12 @@ namespace Mashinin.Controllers
             return Ok(await _makeService.GetAsync(id));
         }
 
+        [HttpGet("GetByTurboAzId/{id}")]
+        public async Task<IActionResult> GetByTurboAzId(int id)
+        {
+            return Ok(await _makeService.GetByTurboAzIdAsync(id));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(MakeCreateDTO makeCreateDTO)
         {
