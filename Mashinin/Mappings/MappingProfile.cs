@@ -28,7 +28,10 @@ namespace Mashinin.Mappings
             CreateMap<Model, ModelGetDTO>()
                 .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
                 .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
+                .ForMember(des => des.Make, src => src.MapFrom(x => x.Make.Name))
+                .ForMember(des => des.MakeTurboAzId, src => src.MapFrom(x => x.Make.TurboAzId))
+                .ForMember(des => des.MakeId, src => src.MapFrom(x => x.Make.Id));
 
             CreateMap<ModelCreateDTO, Model>()
                 .ForMember(des => des.Name, src => src.MapFrom(x => x.Name.Trim()))

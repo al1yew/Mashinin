@@ -13,7 +13,8 @@ namespace Mashinin.DTOs.ModelDTOs
         public Nullable<DateTime> DeletedAt { get; set; }
         public Nullable<DateTime> CreatedAt { get; set; }
 
-        public MakeGetDTO Make { get; set; }
+        public string Make { get; set; }
+        public int MakeTurboAzId { get; set; }
         public int MakeId { get; set; }
     }
 }

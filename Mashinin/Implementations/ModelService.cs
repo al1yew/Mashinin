@@ -66,7 +66,7 @@ namespace Mashinin.Implementations
 
             if (!_memoryCache.TryGetValue(cacheKey, out models))
             {
-                models = _mapper.Map<List<ModelGetDTO>>(await _unitOfWork.ModelRepository.GetAllAsync());
+                models = _mapper.Map<List<ModelGetDTO>>(await _unitOfWork.ModelRepository.GetAllAsync("Make"));
 
                 await SetCache(models);
             }
@@ -76,14 +76,14 @@ namespace Mashinin.Implementations
 
         public async Task<List<ModelGetDTO>> GetByMakeIdAsync(int id)
         {
-            List<ModelGetDTO> models = _mapper.Map<List<ModelGetDTO>>(await _unitOfWork.ModelRepository.GetAllByExAsync(x => x.MakeId == id));
+            List<ModelGetDTO> models = _mapper.Map<List<ModelGetDTO>>(await _unitOfWork.ModelRepository.GetAllByExAsync(x => x.MakeId == id, "Make"));
 
             return models;
         }
 
         public async Task<ModelGetDTO> GetAsync(int id)
         {
-            ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id));
+            ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id, "Make"));
 
             if (model is null)
                 throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
@@ -93,7 +93,7 @@ namespace Mashinin.Implementations
 
         public async Task<ModelGetDTO> GetByTurboAzIdAsync(int id)
         {
-            ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.TurboAzId == id));
+            ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.TurboAzId == id, "Make"));
 
             if (model is null)
                 throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
