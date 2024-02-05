@@ -6,6 +6,7 @@ namespace Mashinin
     {
         IModelRepository ModelRepository { get; }
         IMakeRepository MakeRepository { get; }
+        ICityRepository CityRepository { get; }
         Task<int> CommitAsync();
         int Commit();
     }

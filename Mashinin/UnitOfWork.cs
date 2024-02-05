@@ -8,6 +8,7 @@ namespace Mashinin
         private readonly AppDbContext _context;
         private readonly MakeRepository _makeRepository;
         private readonly ModelRepository _modelRepository;
+        private readonly CityRepository _cityRepository;
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -17,6 +18,7 @@ namespace Mashinin
 
         public IMakeRepository MakeRepository => _makeRepository ?? new MakeRepository(_context);
         public IModelRepository ModelRepository => _modelRepository ?? new ModelRepository(_context);
+        public ICityRepository CityRepository => _cityRepository ?? new CityRepository(_context);
 
 
         public int Commit()
