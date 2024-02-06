@@ -123,6 +123,15 @@
   <data name="cityNotFound" xml:space="preserve">
     <value>City is not found.</value>
   </data>
+  <data name="colorExists" xml:space="preserve">
+    <value>Color exists with NameAz="{0}", or NameRu="{1}", or NameEn="{2}", or HexCode="{3}".</value>
+  </data>
+  <data name="colorNotFound" xml:space="preserve">
+    <value>Color is not found.</value>
+  </data>
+  <data name="hexCodeNotMatchFormat" xml:space="preserve">
+    <value>Invalid hex color code format.</value>
+  </data>
   <data name="makeExists" xml:space="preserve">
     <value>Make exists with Name="{0}" or TurboAzId="{1}".</value>
   </data>

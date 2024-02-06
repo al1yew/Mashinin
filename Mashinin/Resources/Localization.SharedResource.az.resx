@@ -123,6 +123,15 @@
   <data name="cityNotFound" xml:space="preserve">
     <value>Şəhər tapılmadı.</value>
   </data>
+  <data name="colorExists" xml:space="preserve">
+    <value>NameAz="{0}", və ya NameRu="{1}", və ya NameEn="{2}", və ya HexCode="{3}" olan rənq mövcuddur.</value>
+  </data>
+  <data name="colorNotFound" xml:space="preserve">
+    <value>Rənq tapılmadı.</value>
+  </data>
+  <data name="hexCodeNotMatchFormat" xml:space="preserve">
+    <value>HexCode lazım olan formata uyğun deyil.</value>
+  </data>
   <data name="makeExists" xml:space="preserve">
     <value>Adı "{0}" və ya TurboAzId="{1}" olan marka mövcuddur.</value>
   </data>

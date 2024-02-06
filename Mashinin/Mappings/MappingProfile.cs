@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Mashinin.DTOs.CityDTOs;
+using Mashinin.DTOs.ColorDTOs;
 using Mashinin.DTOs.MakeDTOs;
 using Mashinin.DTOs.ModelDTOs;
 using Mashinin.Entities;
@@ -51,6 +52,22 @@ namespace Mashinin.Mappings
                 .ForMember(des => des.NameRu, src => src.MapFrom(x => x.NameRu.Trim()))
                 .ForMember(des => des.NameAz, src => src.MapFrom(x => x.NameAz.Trim()))
                 .ForMember(des => des.NameEn, src => src.MapFrom(x => x.NameEn.Trim()))
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => DateTime.UtcNow.AddHours(4)));
+
+            #endregion
+
+            #region Color
+
+            CreateMap<Color, ColorGetDTO>()
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
+                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
+                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+
+            CreateMap<ColorCreateDTO, Color>()
+                .ForMember(des => des.NameRu, src => src.MapFrom(x => x.NameRu.Trim()))
+                .ForMember(des => des.NameAz, src => src.MapFrom(x => x.NameAz.Trim()))
+                .ForMember(des => des.NameEn, src => src.MapFrom(x => x.NameEn.Trim()))
+                .ForMember(des => des.HexCode, src => src.MapFrom(x => x.HexCode.Trim()))
                 .ForMember(des => des.CreatedAt, src => src.MapFrom(x => DateTime.UtcNow.AddHours(4)));
 
             #endregion

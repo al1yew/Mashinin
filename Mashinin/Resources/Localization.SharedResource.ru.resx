@@ -118,10 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cityExists" xml:space="preserve">
-    <value>Город существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}"</value>
+    <value>Город существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}".</value>
   </data>
   <data name="cityNotFound" xml:space="preserve">
     <value>Город не найден.</value>
+  </data>
+  <data name="colorExists" xml:space="preserve">
+    <value>Цвет существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}", или с HexCode="{3}".</value>
+  </data>
+  <data name="colorNotFound" xml:space="preserve">
+    <value>Цвет не найден.</value>
+  </data>
+  <data name="hexCodeNotMatchFormat" xml:space="preserve">
+    <value>HexCode не соответствует нужному формату.</value>
   </data>
   <data name="makeExists" xml:space="preserve">
     <value>Марка существует или с именем "{0}", или с TurboAzId="{1}".</value>

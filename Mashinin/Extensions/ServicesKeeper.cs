@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Mashinin.DTOs.CityDTOs;
+using Mashinin.DTOs.ColorDTOs;
 using Mashinin.DTOs.MakeDTOs;
 using Mashinin.DTOs.ModelDTOs;
 using Mashinin.Implementations;
@@ -18,6 +19,7 @@ namespace Mashinin.Extensions
             services.AddScoped<IMakeService, MakeService>();
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IColorService, ColorService>();
 
 
             //logger
@@ -32,6 +34,9 @@ namespace Mashinin.Extensions
 
             services.AddScoped<IValidator<CityCreateDTO>, CityCreateDTOValidator>();
             services.AddScoped<IValidator<CityUpdateDTO>, CityUpdateDTOValidator>();
+
+            services.AddScoped<IValidator<ColorCreateDTO>, ColorCreateDTOValidator>();
+            services.AddScoped<IValidator<ColorUpdateDTO>, ColorUpdateDTOValidator>();
         }
     }
 }
