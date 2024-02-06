@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cityExists" xml:space="preserve">
-    <value>Город существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}".</value>
+    <value>Город существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}", или с Index="{3}".</value>
   </data>
   <data name="cityNotFound" xml:space="preserve">
     <value>Город не найден.</value>

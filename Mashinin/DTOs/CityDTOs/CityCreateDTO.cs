@@ -9,6 +9,7 @@ namespace Mashinin.DTOs.CityDTOs
         public string NameAz { get; set; }
         public string NameEn { get; set; }
         public string NameRu { get; set; }
+        public int Index { get; set; }
     }
 
     public class CityCreateDTOValidator : AbstractValidator<CityCreateDTO>
@@ -23,6 +24,9 @@ namespace Mashinin.DTOs.CityDTOs
 
             RuleFor(x => x.NameRu)
               .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
+
+            RuleFor(x => x.Index)
+              .NotEmpty().WithMessage(x => "Index " + stringLocalizer["required"]);
         }
     }
 }

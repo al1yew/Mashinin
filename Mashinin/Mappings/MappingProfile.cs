@@ -67,7 +67,7 @@ namespace Mashinin.Mappings
                 .ForMember(des => des.NameRu, src => src.MapFrom(x => x.NameRu.Trim()))
                 .ForMember(des => des.NameAz, src => src.MapFrom(x => x.NameAz.Trim()))
                 .ForMember(des => des.NameEn, src => src.MapFrom(x => x.NameEn.Trim()))
-                .ForMember(des => des.HexCode, src => src.MapFrom(x => x.HexCode.Trim()))
+                .ForMember(des => des.HexCode, src => src.MapFrom(x => x.HexCode.Trim().ToUpperInvariant()))
                 .ForMember(des => des.CreatedAt, src => src.MapFrom(x => DateTime.UtcNow.AddHours(4)));
 
             #endregion

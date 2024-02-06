@@ -88,10 +88,11 @@ namespace Mashinin.Implementations
             bool cityExists = await _unitOfWork.CityRepository.DoesExistAsync(x =>
             x.NameAz.ToLower() == cityCreateDTO.NameAz.Trim().ToLower() ||
             x.NameRu.ToLower() == cityCreateDTO.NameRu.Trim().ToLower() ||
-            x.NameEn.ToLower() == cityCreateDTO.NameEn.Trim().ToLower());
+            x.NameEn.ToLower() == cityCreateDTO.NameEn.Trim().ToLower() ||
+            x.Index == cityCreateDTO.Index);
 
             if (cityExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["cityExists"], cityCreateDTO.NameAz, cityCreateDTO.NameRu, cityCreateDTO.NameEn));
+                throw new RecordDuplicateException(string.Format(_sharedLocalizer["cityExists"], cityCreateDTO.NameAz, cityCreateDTO.NameRu, cityCreateDTO.NameEn, cityCreateDTO.Index));
 
             City city = _mapper.Map<City>(cityCreateDTO);
 
@@ -110,10 +111,11 @@ namespace Mashinin.Implementations
             x.Id != cityUpdateDTO.Id &&
             (x.NameAz.ToLower() == cityUpdateDTO.NameAz.Trim().ToLower() ||
             x.NameRu.ToLower() == cityUpdateDTO.NameRu.Trim().ToLower() ||
-            x.NameEn.ToLower() == cityUpdateDTO.NameEn.Trim().ToLower()));
+            x.NameEn.ToLower() == cityUpdateDTO.NameEn.Trim().ToLower() ||
+            x.Index == cityUpdateDTO.Index));
 
             if (cityExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["cityExists"], cityUpdateDTO.NameAz, cityUpdateDTO.NameRu, cityUpdateDTO.NameEn));
+                throw new RecordDuplicateException(string.Format(_sharedLocalizer["cityExists"], cityUpdateDTO.NameAz, cityUpdateDTO.NameRu, cityUpdateDTO.NameEn, cityUpdateDTO.Index));
 
             City city = await _unitOfWork.CityRepository.GetAsync(x => x.Id == cityUpdateDTO.Id);
 
@@ -123,6 +125,7 @@ namespace Mashinin.Implementations
             city.NameAz = cityUpdateDTO.NameAz.Trim();
             city.NameRu = cityUpdateDTO.NameRu.Trim();
             city.NameEn = cityUpdateDTO.NameEn.Trim();
+            city.Index = cityUpdateDTO.Index;
             city.UpdatedAt = DateTime.UtcNow.AddHours(4);
             city.IsUpdated = true;
 
