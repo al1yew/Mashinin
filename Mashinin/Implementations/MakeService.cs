@@ -95,8 +95,9 @@ namespace Mashinin.Implementations
             if (makeCreateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
+            //we cant have the same turboazid or name
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x =>
-            x.Name.ToLower() == makeCreateDTO.Name.Trim().ToLower() &&
+            x.Name.ToLower() == makeCreateDTO.Name.Trim().ToLower() ||
             x.TurboAzId == makeCreateDTO.TurboAzId);
 
             if (makeExists)
@@ -114,10 +115,10 @@ namespace Mashinin.Implementations
             if (makeUpdateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
-            //id is not the same, but values are the same
+            //id is not the same, but values are present in database. we cannot update make to a make which exists
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x =>
             x.Id != makeUpdateDTO.Id &&
-            (x.Name.ToLower() == makeUpdateDTO.Name.Trim().ToLower() &&
+            (x.Name.ToLower() == makeUpdateDTO.Name.Trim().ToLower() ||
             x.TurboAzId == makeUpdateDTO.TurboAzId));
 
             if (makeExists)

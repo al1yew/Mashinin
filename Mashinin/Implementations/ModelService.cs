@@ -112,9 +112,8 @@ namespace Mashinin.Implementations
                 throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
             bool modelExists = await _unitOfWork.ModelRepository.DoesExistAsync(x =>
-            x.Name.ToLower() == modelCreateDTO.Name.Trim().ToLower() &&
-            x.TurboAzId == modelCreateDTO.TurboAzId &&
-            x.MakeId == modelCreateDTO.MakeId);
+            x.Name.ToLower() == modelCreateDTO.Name.Trim().ToLower() ||
+            x.TurboAzId == modelCreateDTO.TurboAzId);
 
             if (modelExists)
                 throw new RecordDuplicateException(string.Format(_sharedLocalizer["modelExists"], modelCreateDTO.Name, modelCreateDTO.TurboAzId, modelCreateDTO.MakeId));
@@ -139,9 +138,8 @@ namespace Mashinin.Implementations
             //id is not the same, but values are the same
             bool modelExists = await _unitOfWork.ModelRepository.DoesExistAsync(x =>
             x.Id != modelUpdateDTO.Id &&
-            x.Name.ToLower() == modelUpdateDTO.Name.Trim().ToLower() &&
-            x.TurboAzId == modelUpdateDTO.TurboAzId &&
-            x.MakeId == modelUpdateDTO.MakeId);
+            (x.Name.ToLower() == modelUpdateDTO.Name.Trim().ToLower() ||
+            x.TurboAzId == modelUpdateDTO.TurboAzId));
 
             if (modelExists)
                 throw new RecordDuplicateException(string.Format(_sharedLocalizer["modelExists"], modelUpdateDTO.Name, modelUpdateDTO.TurboAzId, modelUpdateDTO.MakeId));

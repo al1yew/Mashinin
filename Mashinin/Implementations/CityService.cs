@@ -86,8 +86,8 @@ namespace Mashinin.Implementations
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
             bool cityExists = await _unitOfWork.CityRepository.DoesExistAsync(x =>
-            x.NameAz.ToLower() == cityCreateDTO.NameAz.Trim().ToLower() &&
-            x.NameRu.ToLower() == cityCreateDTO.NameRu.Trim().ToLower() &&
+            x.NameAz.ToLower() == cityCreateDTO.NameAz.Trim().ToLower() ||
+            x.NameRu.ToLower() == cityCreateDTO.NameRu.Trim().ToLower() ||
             x.NameEn.ToLower() == cityCreateDTO.NameEn.Trim().ToLower());
 
             if (cityExists)
@@ -108,9 +108,9 @@ namespace Mashinin.Implementations
             //id is not the same, but values are the same
             bool cityExists = await _unitOfWork.CityRepository.DoesExistAsync(x =>
             x.Id != cityUpdateDTO.Id &&
-            x.NameAz.ToLower() == cityUpdateDTO.NameAz.Trim().ToLower() &&
-            x.NameRu.ToLower() == cityUpdateDTO.NameRu.Trim().ToLower() &&
-            x.NameEn.ToLower() == cityUpdateDTO.NameEn.Trim().ToLower());
+            (x.NameAz.ToLower() == cityUpdateDTO.NameAz.Trim().ToLower() ||
+            x.NameRu.ToLower() == cityUpdateDTO.NameRu.Trim().ToLower() ||
+            x.NameEn.ToLower() == cityUpdateDTO.NameEn.Trim().ToLower()));
 
             if (cityExists)
                 throw new RecordDuplicateException(string.Format(_sharedLocalizer["cityExists"], cityUpdateDTO.NameAz, cityUpdateDTO.NameRu, cityUpdateDTO.NameEn));
