@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cityExists" xml:space="preserve">
-    <value>NameAz "{0}",  NameRu "{1}" və NameEn "{2}" olan şəhər mövcuddur.</value>
+    <value>NameAz="{0}", və ya NameRu="{1}", və ya NameEn="{2}" olan şəhər mövcuddur.</value>
   </data>
   <data name="cityNotFound" xml:space="preserve">
     <value>Şəhər tapılmadı.</value>
   </data>
   <data name="makeExists" xml:space="preserve">
-    <value>Adı "{0}" və TurboAzId "{1}" olan marka mövcuddur.</value>
+    <value>Adı "{0}" və ya TurboAzId="{1}" olan marka mövcuddur.</value>
   </data>
   <data name="makeNotFound" xml:space="preserve">
     <value>Marka tapılmadı.</value>
   </data>
   <data name="modelExists" xml:space="preserve">
-    <value>Adı "{0}", TurboAzId "{1}" və MakeId "{2}" olan model mövcuddur.</value>
+    <value>Adı "{0}", və ya TurboAzId="{1}", və ya MakeId="{2}" olan model mövcuddur.</value>
   </data>
   <data name="modelNotFound" xml:space="preserve">
     <value>Model tapılmadı.</value>

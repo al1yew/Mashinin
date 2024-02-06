@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cityExists" xml:space="preserve">
-    <value>City exists with NameAz "{0}", NameRu "{1}", and NameEn "{2}".</value>
+    <value>City exists with NameAz="{0}", or NameRu="{1}", or NameEn="{2}".</value>
   </data>
   <data name="cityNotFound" xml:space="preserve">
     <value>City is not found.</value>
   </data>
   <data name="makeExists" xml:space="preserve">
-    <value>Make exists with Name "{0}" and TurboAzId "{1}".</value>
+    <value>Make exists with Name="{0}" or TurboAzId="{1}".</value>
   </data>
   <data name="makeNotFound" xml:space="preserve">
     <value>Make is not found.</value>
   </data>
   <data name="modelExists" xml:space="preserve">
-    <value>Model exists with Name "{0}", TurboAzId "{1}", and MakeId "{2}".</value>
+    <value>Model exists with Name="{0}", or TurboAzId="{1}", or MakeId="{2}".</value>
   </data>
   <data name="modelNotFound" xml:space="preserve">
     <value>Model is not found.</value>

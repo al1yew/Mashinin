@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cityExists" xml:space="preserve">
-    <value>Город существует с NameAz "{0}", NameRu "{1}", и NameEn "{2}"</value>
+    <value>Город существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}"</value>
   </data>
   <data name="cityNotFound" xml:space="preserve">
     <value>Город не найден.</value>
   </data>
   <data name="makeExists" xml:space="preserve">
-    <value>Марка существует с именем "{0}" и TurboAzId "{1}".</value>
+    <value>Марка существует или с именем "{0}", или с TurboAzId="{1}".</value>
   </data>
   <data name="makeNotFound" xml:space="preserve">
     <value>Марка не найдена.</value>
   </data>
   <data name="modelExists" xml:space="preserve">
-    <value>Модель существует с именем "{0}", TurboAzId "{1}" и MakeId "{2}".</value>
+    <value>Модель существует или с именем "{0}", или с TurboAzId="{1}", или с MakeId="{2}".</value>
   </data>
   <data name="modelNotFound" xml:space="preserve">
     <value>Модель не найдена.</value>
