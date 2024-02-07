@@ -11,11 +11,11 @@
         public int CityId { get; set; }
         public Color Color { get; set; }
         public int ColorId { get; set; }
+        public int ViewCount { get; set; }
         public int ImagesFolderId { get; set; }
         //List<VehicleImages>
         //List<PriceHistory>
         //user
-
 
         //price logics
         //public class PriceHistory

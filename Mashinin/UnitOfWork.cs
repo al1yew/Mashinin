@@ -10,6 +10,7 @@ namespace Mashinin
         private readonly ModelRepository _modelRepository;
         private readonly CityRepository _cityRepository;
         private readonly ColorRepository _colorRepository;
+        private readonly NumberPlateRepository _numberPlateRepository;
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -21,6 +22,7 @@ namespace Mashinin
         public IModelRepository ModelRepository => _modelRepository ?? new ModelRepository(_context);
         public ICityRepository CityRepository => _cityRepository ?? new CityRepository(_context);
         public IColorRepository ColorRepository => _colorRepository ?? new ColorRepository(_context);
+        public INumberPlateRepository NumberPlateRepository => _numberPlateRepository ?? new NumberPlateRepository(_context);
 
 
         public int Commit()

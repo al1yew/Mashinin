@@ -8,6 +8,8 @@ namespace Mashinin
         IMakeRepository MakeRepository { get; }
         ICityRepository CityRepository { get; }
         IColorRepository ColorRepository { get; }
+        INumberPlateRepository NumberPlateRepository { get; }
+
         Task<int> CommitAsync();
         int Commit();
     }

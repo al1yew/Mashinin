@@ -129,6 +129,9 @@
   <data name="colorNotFound" xml:space="preserve">
     <value>Rənq tapılmadı.</value>
   </data>
+  <data name="descriptionRequired" xml:space="preserve">
+    <value>Əlavə məlumat mütləqdir!</value>
+  </data>
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>HexCode lazım olan formata uyğun deyil.</value>
   </data>
@@ -149,6 +152,18 @@
   </data>
   <data name="nameRequired" xml:space="preserve">
     <value>Ad mütləqdir!</value>
+  </data>
+  <data name="numberPlateExists" xml:space="preserve">
+    <value>"{0}" Nömrəsi artıq mövcuddur.</value>
+  </data>
+  <data name="numberPlateFalseFormat" xml:space="preserve">
+    <value>Nömrə səhv formatdadır.</value>
+  </data>
+  <data name="numberPlateNotFound" xml:space="preserve">
+    <value>Nömrə tapılmadı.</value>
+  </data>
+  <data name="numberPlateRequired" xml:space="preserve">
+    <value>Nömrə qeyd olunmayıb!</value>
   </data>
   <data name="objectIsNull" xml:space="preserve">
     <value>Göndərilən obyekt boşdur.</value>

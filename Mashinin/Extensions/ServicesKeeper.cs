@@ -3,6 +3,7 @@ using Mashinin.DTOs.CityDTOs;
 using Mashinin.DTOs.ColorDTOs;
 using Mashinin.DTOs.MakeDTOs;
 using Mashinin.DTOs.ModelDTOs;
+using Mashinin.DTOs.NumberPlateDTOs;
 using Mashinin.Implementations;
 using Mashinin.Interfaces;
 using Mashinin.Logger;
@@ -20,6 +21,7 @@ namespace Mashinin.Extensions
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IColorService, ColorService>();
+            services.AddScoped<INumberPlateService, NumberPlateService>();
 
 
             //logger
@@ -37,6 +39,9 @@ namespace Mashinin.Extensions
 
             services.AddScoped<IValidator<ColorCreateDTO>, ColorCreateDTOValidator>();
             services.AddScoped<IValidator<ColorUpdateDTO>, ColorUpdateDTOValidator>();
+
+            services.AddScoped<IValidator<NumberPlateCreateDTO>, NumberPlateCreateDTOValidator>();
+            services.AddScoped<IValidator<NumberPlateUpdateDTO>, NumberPlateUpdateDTOValidator>();
         }
     }
 }

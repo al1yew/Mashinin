@@ -21,6 +21,7 @@ namespace Mashinin
         public DbSet<Model> Models { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Color> Colors { get; set; }
+        public DbSet<NumberPlate> NumberPlates { get; set; }
 
 
     }

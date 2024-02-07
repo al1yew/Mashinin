@@ -129,6 +129,9 @@
   <data name="colorNotFound" xml:space="preserve">
     <value>Color is not found.</value>
   </data>
+  <data name="descriptionRequired" xml:space="preserve">
+    <value>Description is required!</value>
+  </data>
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>Invalid hex color code format.</value>
   </data>
@@ -149,6 +152,18 @@
   </data>
   <data name="nameRequired" xml:space="preserve">
     <value>Name is required!</value>
+  </data>
+  <data name="numberPlateExists" xml:space="preserve">
+    <value>Number plate "{0}" exists.</value>
+  </data>
+  <data name="numberPlateFalseFormat" xml:space="preserve">
+    <value>Number plate is in wrong format.</value>
+  </data>
+  <data name="numberPlateNotFound" xml:space="preserve">
+    <value>Number plate is not found.</value>
+  </data>
+  <data name="numberPlateRequired" xml:space="preserve">
+    <value>Number plate is required!</value>
   </data>
   <data name="objectIsNull" xml:space="preserve">
     <value>Sent object is null.</value>
