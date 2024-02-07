@@ -4,6 +4,7 @@ using Mashinin.Extensions;
 using Mashinin.Logger;
 using Mashinin.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using NLog;
 
 var builder = WebApplication.CreateBuilder(args);

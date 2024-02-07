@@ -11,7 +11,6 @@ namespace Mashinin.Configurations
             builder.Property(x => x.NameAz).IsRequired();
             builder.Property(x => x.NameRu).IsRequired();
             builder.Property(x => x.NameEn).IsRequired();
-            builder.Property(x => x.Index).IsRequired();
         }
     }
 }

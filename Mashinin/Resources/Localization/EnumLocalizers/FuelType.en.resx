@@ -117,40 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cityExists" xml:space="preserve">
-    <value>NameAz="{0}", və ya NameRu="{1}", və ya NameEn="{2}", və ya Index="{3}" olan şəhər mövcuddur.</value>
+  <data name="diesel" xml:space="preserve">
+    <value>Diesel</value>
   </data>
-  <data name="cityNotFound" xml:space="preserve">
-    <value>Şəhər tapılmadı.</value>
+  <data name="electric" xml:space="preserve">
+    <value>Electricity</value>
   </data>
-  <data name="colorExists" xml:space="preserve">
-    <value>NameAz="{0}", və ya NameRu="{1}", və ya NameEn="{2}", və ya HexCode="{3}" olan rənq mövcuddur.</value>
+  <data name="gas" xml:space="preserve">
+    <value>Gas</value>
   </data>
-  <data name="colorNotFound" xml:space="preserve">
-    <value>Rənq tapılmadı.</value>
+  <data name="gasoline" xml:space="preserve">
+    <value>Gasoline</value>
   </data>
-  <data name="hexCodeNotMatchFormat" xml:space="preserve">
-    <value>HexCode lazım olan formata uyğun deyil.</value>
+  <data name="hybrid" xml:space="preserve">
+    <value>Hybrid</value>
   </data>
-  <data name="makeExists" xml:space="preserve">
-    <value>Adı "{0}" və ya TurboAzId="{1}" olan marka mövcuddur.</value>
-  </data>
-  <data name="makeNotFound" xml:space="preserve">
-    <value>Marka tapılmadı.</value>
-  </data>
-  <data name="modelExists" xml:space="preserve">
-    <value>Adı "{0}", və ya TurboAzId="{1}", və ya MakeId="{2}" olan model mövcuddur.</value>
-  </data>
-  <data name="modelNotFound" xml:space="preserve">
-    <value>Model tapılmadı.</value>
-  </data>
-  <data name="nameRequired" xml:space="preserve">
-    <value>Ad mütləqdir!</value>
-  </data>
-  <data name="objectIsNull" xml:space="preserve">
-    <value>Göndərilən obyekt boşdur.</value>
-  </data>
-  <data name="required" xml:space="preserve">
-    <value>mütləqdir!</value>
+  <data name="plugInHybrid" xml:space="preserve">
+    <value>Plug-in Hybrid</value>
   </data>
 </root>

@@ -117,40 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cityExists" xml:space="preserve">
-    <value>City exists with NameAz="{0}", or NameRu="{1}", or NameEn="{2}", or Index="{3}".</value>
+  <data name="diesel" xml:space="preserve">
+    <value>Дизель</value>
   </data>
-  <data name="cityNotFound" xml:space="preserve">
-    <value>City is not found.</value>
+  <data name="electric" xml:space="preserve">
+    <value>Электричество</value>
   </data>
-  <data name="colorExists" xml:space="preserve">
-    <value>Color exists with NameAz="{0}", or NameRu="{1}", or NameEn="{2}", or HexCode="{3}".</value>
+  <data name="gas" xml:space="preserve">
+    <value>Газ</value>
   </data>
-  <data name="colorNotFound" xml:space="preserve">
-    <value>Color is not found.</value>
+  <data name="gasoline" xml:space="preserve">
+    <value>Бензин</value>
   </data>
-  <data name="hexCodeNotMatchFormat" xml:space="preserve">
-    <value>Invalid hex color code format.</value>
+  <data name="hybrid" xml:space="preserve">
+    <value>Гибрид</value>
   </data>
-  <data name="makeExists" xml:space="preserve">
-    <value>Make exists with Name="{0}" or TurboAzId="{1}".</value>
-  </data>
-  <data name="makeNotFound" xml:space="preserve">
-    <value>Make is not found.</value>
-  </data>
-  <data name="modelExists" xml:space="preserve">
-    <value>Model exists with Name="{0}", or TurboAzId="{1}", or MakeId="{2}".</value>
-  </data>
-  <data name="modelNotFound" xml:space="preserve">
-    <value>Model is not found.</value>
-  </data>
-  <data name="nameRequired" xml:space="preserve">
-    <value>Name is required!</value>
-  </data>
-  <data name="objectIsNull" xml:space="preserve">
-    <value>Sent object is null.</value>
-  </data>
-  <data name="required" xml:space="preserve">
-    <value>is required!</value>
+  <data name="plugInHybrid" xml:space="preserve">
+    <value>Plug-in Гибрид</value>
   </data>
 </root>

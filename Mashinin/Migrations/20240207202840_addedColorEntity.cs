@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Mashinin.Migrations
 {
     /// <inheritdoc />
-    public partial class addedColor : Migration
+    public partial class addedColorEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace Mashinin.Migrations
                     NameAz = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NameRu = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NameEn = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HexCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HexCode = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     IsUpdated = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mashinin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240206220324_updatedCity_AddedIndex")]
-    partial class updatedCity_AddedIndex
+    [Migration("20240207202840_addedColorEntity")]
+    partial class addedColorEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,9 +38,6 @@ namespace Mashinin.Migrations
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("Index")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
