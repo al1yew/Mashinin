@@ -203,6 +203,9 @@ namespace Mashinin.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsForBargain")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsUpdated")
                         .HasColumnType("bit");
 

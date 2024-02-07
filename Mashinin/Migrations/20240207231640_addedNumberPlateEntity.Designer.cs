@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mashinin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240207213659_addedNumberPlateEntity")]
+    [Migration("20240207231640_addedNumberPlateEntity")]
     partial class addedNumberPlateEntity
     {
         /// <inheritdoc />
@@ -204,6 +204,9 @@ namespace Mashinin.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsForBargain")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsUpdated")

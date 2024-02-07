@@ -8,6 +8,7 @@ namespace Mashinin.DTOs.NumberPlateDTOs
     {
         public string Value { get; set; }
         public string Description { get; set; }
+        public bool IsForBargain { get; set; }
     }
 
     public class NumberPlateCreateDTOValidator : AbstractValidator<NumberPlateCreateDTO>

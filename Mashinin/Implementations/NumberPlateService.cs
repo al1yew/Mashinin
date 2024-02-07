@@ -102,6 +102,7 @@ namespace Mashinin.Implementations
 
             numberPlate.Value = numberPlateUpdateDTO.Value.Trim();
             numberPlate.Description = numberPlateUpdateDTO.Description.Trim();
+            numberPlate.IsForBargain = numberPlateUpdateDTO.IsForBargain;
             numberPlate.UpdatedAt = DateTime.UtcNow.AddHours(4);
             numberPlate.IsUpdated = true;
 

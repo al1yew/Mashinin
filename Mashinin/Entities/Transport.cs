@@ -1,6 +1,6 @@
 ﻿namespace Mashinin.Entities
 {
-    public class Transport : BaseEntity // car? a mojet transport? vehicle? A mojet car ve moto transportdan miras alsin?
+    public class Transport : BaseEntity
     {
         //relations
         public Make Make { get; set; }
