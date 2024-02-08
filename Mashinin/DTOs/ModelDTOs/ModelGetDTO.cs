@@ -7,6 +7,7 @@ namespace Mashinin.DTOs.ModelDTOs
         public int Id { get; set; }
         public string Name { get; set; }
         public int TurboAzId { get; set; }
+        public string Class { get; set; }
         public bool IsUpdated { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<DateTime> UpdatedAt { get; set; }

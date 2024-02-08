@@ -9,6 +9,7 @@ namespace Mashinin.DTOs.ModelDTOs
         public int TurboAzId { get; set; }
         public string Name { get; set; }
         public int MakeId { get; set; }
+        public string Class { get; set; }
     }
 
     public class ModelCreateDTOValidator : AbstractValidator<ModelCreateDTO>
