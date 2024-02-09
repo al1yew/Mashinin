@@ -38,7 +38,7 @@
         public int EnginePower { get; set; } // loshadinie sili
         public string FrontImage { get; set; } //foto pered
         public string RearImage { get; set; } //foto zadnica
-        public string NumberPlate { get; set; } // nomer mashini
+        public string NumberPlate { get; set; } // nomer mashini -- nujno voobshe eto? mashin al zacemto sprashivayet, mojet oni proverayut kak to?
         public string KeyWords { get; set; } // tegi, keywordi, chel sam dobavit
         public string MetaDatas { get; set; } //meta tegi dla nextjs
         public double PriceForRepair { get; set; } // esli is damaged, bunu yazmalidi
@@ -92,5 +92,6 @@
 
 
         //moto props
+        //some moto props
     }
 }
