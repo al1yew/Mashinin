@@ -22,6 +22,7 @@ namespace Mashinin.Extensions
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IColorService, ColorService>();
             services.AddScoped<INumberPlateService, NumberPlateService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
 
 
             //logger

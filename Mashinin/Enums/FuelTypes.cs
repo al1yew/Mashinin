@@ -6,7 +6,7 @@ namespace Mashinin.Enums
 {
     public enum FuelTypes
     {
-        gasoline = 1,
+        benzin = 1,
         diesel = 2,
         gas = 3,
         electric = 4,
