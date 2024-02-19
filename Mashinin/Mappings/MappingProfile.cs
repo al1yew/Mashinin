@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Mashinin.DTOs.CityDTOs;
 using Mashinin.DTOs.ColorDTOs;
+using Mashinin.DTOs.ExtractedCarDetailDTOs;
+using Mashinin.DTOs.ExtractedNumberDTOs;
 using Mashinin.DTOs.MakeDTOs;
 using Mashinin.DTOs.ModelDTOs;
 using Mashinin.DTOs.NumberPlateDTOs;
@@ -84,6 +86,21 @@ namespace Mashinin.Mappings
                 .ForMember(des => des.Value, src => src.MapFrom(x => x.Value.Trim().ToUpperInvariant()))
                 .ForMember(des => des.Description, src => src.MapFrom(x => x.Description.Trim()))
                 .ForMember(des => des.CreatedAt, src => src.MapFrom(x => DateTime.UtcNow.AddHours(4)));
+
+            #endregion
+
+            #region ExtractedCarDetail
+
+            CreateMap<ExtractedCarDetail, ExtractedCarDetailGetDTO>()
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
+                .ForMember(des => des.PostCreatedAt, src => src.MapFrom(x => x.PostCreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+
+            #endregion
+
+            #region ExtractedCarDetail
+
+            CreateMap<ExtractedNumber, ExtractedNumberGetDTO>()
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
 
             #endregion
         }

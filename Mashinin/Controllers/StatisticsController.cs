@@ -15,10 +15,18 @@ namespace Mashinin.Controllers
             _statisticsService = statisticsService;
         }
 
-        [HttpPost("GetAveragePriceForOneCar")]
-        public async Task<IActionResult> GetAveragePriceForOneCar(GetStatisticsDTO getStatisticsDTO)
+        [HttpGet("CreateCars")]
+        public async Task<IActionResult> CreateCars()
         {
-            return Ok(await _statisticsService.GetAveragePriceForOneCar(getStatisticsDTO));
+            await _statisticsService.CreateCars();
+            return Ok();
+        }
+
+        [HttpGet("CreateNumbers")]
+        public async Task<IActionResult> CreateNumbers()
+        {
+            await _statisticsService.CreateNumbers();
+            return Ok();
         }
     }
 }

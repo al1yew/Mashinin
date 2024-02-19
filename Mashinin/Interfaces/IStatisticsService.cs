@@ -1,9 +1,13 @@
-﻿using Mashinin.DTOs.StatisticsDTOs;
+﻿using HtmlAgilityPack;
+using Mashinin.DTOs.StatisticsDTOs;
+using Mashinin.Entities;
 
 namespace Mashinin.Interfaces
 {
     public interface IStatisticsService
     {
-        Task<List<ExtractedCarPriceDetailsDTO>> GetAveragePriceForOneCar(GetStatisticsDTO getStatisticsDTO);
+        //Task GetAveragePriceForOneCar(GetStatisticsDTO getStatisticsDTO);
+        Task CreateCars();
+        Task CreateNumbers();
     }
 }
