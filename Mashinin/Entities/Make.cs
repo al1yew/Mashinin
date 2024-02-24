@@ -10,5 +10,6 @@ namespace Mashinin.Entities
 
 
         public List<Model> Models { get; set; }
+        public List<Transport> Transports { get; set; }
     }
 }

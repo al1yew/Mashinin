@@ -4,6 +4,7 @@ using Mashinin;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mashinin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240224212841_addedTransportAndRelatedEntities")]
+    partial class addedTransportAndRelatedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,213 +321,6 @@ namespace Mashinin.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NumberPlates");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.Part", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoltCount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Capacity")
-                        .HasColumnType("float");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ColdCrankingAmps")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Color")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Dimensions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GroupSize")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("HasThorns")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasWarranty")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Heading")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ImagesFolderId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsForBargain")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsOriginal")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsRunFlat")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("KeyWords")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ManufactureDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Material")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MetaData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PartCategory")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PartSpecificationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PersonalNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Season")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Size")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SpokeCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("PartSpecificationId");
-
-                    b.ToTable("Parts");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsLowResolution")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PartId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PartId");
-
-                    b.ToTable("PartImages");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartSpecification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NameAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameEn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameRu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PartCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PartSpecifications");
                 });
 
             modelBuilder.Entity("Mashinin.Entities.Price", b =>
@@ -905,36 +701,6 @@ namespace Mashinin.Migrations
                     b.Navigation("Make");
                 });
 
-            modelBuilder.Entity("Mashinin.Entities.Part", b =>
-                {
-                    b.HasOne("Mashinin.Entities.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mashinin.Entities.PartSpecification", "PartSpecification")
-                        .WithMany("Parts")
-                        .HasForeignKey("PartSpecificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-
-                    b.Navigation("PartSpecification");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartImage", b =>
-                {
-                    b.HasOne("Mashinin.Entities.Part", "Part")
-                        .WithMany("PartImages")
-                        .HasForeignKey("PartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Part");
-                });
-
             modelBuilder.Entity("Mashinin.Entities.Price", b =>
                 {
                     b.HasOne("Mashinin.Entities.Transport", "Transport")
@@ -1012,16 +778,6 @@ namespace Mashinin.Migrations
             modelBuilder.Entity("Mashinin.Entities.Model", b =>
                 {
                     b.Navigation("Transports");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.Part", b =>
-                {
-                    b.Navigation("PartImages");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartSpecification", b =>
-                {
-                    b.Navigation("Parts");
                 });
 
             modelBuilder.Entity("Mashinin.Entities.Transport", b =>

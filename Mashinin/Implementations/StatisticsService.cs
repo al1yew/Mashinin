@@ -16,6 +16,7 @@ namespace Mashinin.Implementations
             _webHostEnvironment = webHostEnvironment;
         }
 
+        //if car exists and is < 20 days createdAt (ne postcreated a imenno createdat), proyti mimo - uskorit vse 
         public async Task CreateCars()
         {
             int[] makeIds = {
@@ -112,7 +113,6 @@ namespace Mashinin.Implementations
 
             foreach (Make make in makes)
             {
-                //Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == makeId, "Models");
                 int turboAzMakeId = make.TurboAzId;
 
                 foreach (Model model in make.Models)
@@ -153,7 +153,7 @@ namespace Mashinin.Implementations
                         htmlDocument.LoadHtml(res);
 
                         //getting count of cars
-                        var pElement = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='products-container']//p[@class='products-title-amount']");
+                        var pElement = htmlDocument.DocumentNode.SelectSingleNode("//p[@class='products-title-amount']");
 
                         if (pElement != null)
                         {
@@ -165,6 +165,10 @@ namespace Mashinin.Implementations
                                 carsCount = number; // bu bize elanlarin sayini verir!
                                 pageCount = Math.Ceiling((double)carsCount / 24);
                             }
+                        }
+                        else
+                        {
+                            continue;
                         }
                     }
 
@@ -268,7 +272,17 @@ namespace Mashinin.Implementations
                             var priceText = priceElement?.InnerText.Trim();
 
                             var priceParts = priceText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                            string priceValue = priceParts[0].Replace(" ", "") + priceParts[1];
+                            string priceValue = "";
+
+                            if (priceParts.Length == 3)
+                            {
+                                priceValue = priceParts[0] + priceParts[1];
+                            }
+                            else if (priceParts.Length == 2)
+                            {
+                                priceValue = priceParts[0];
+                            }
+
                             string currency = priceParts[priceParts.Length - 1];
                             bool isUsd = (currency.ToLowerInvariant() == "usd" || currency == "$");
                             bool isEur = (currency.ToLowerInvariant() == "eur" || currency == "€");
@@ -328,7 +342,7 @@ namespace Mashinin.Implementations
                         }
                     }
 
-                    //remove all cars which we already have with this model
+                    //remove all cars which we already have with this model, simply because we do it each 15th day of the month
 
                     var dbList = await _unitOfWork.ExtractedCarDetailRepository.GetAllByExAsync(x => x.ModelId == model.Id);
 

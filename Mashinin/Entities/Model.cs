@@ -8,5 +8,8 @@
 
         public Make Make { get; set; }
         public int MakeId { get; set; }
+
+        public List<Transport> Transports { get; set; }
+
     }
 }
