@@ -13,6 +13,8 @@ namespace Mashinin
         private readonly NumberPlateRepository _numberPlateRepository;
         private readonly ExtractedCarDetailRepository _extractedCarDetailRepository;
         private readonly ExtractedNumberRepository _extractedNumberRepository;
+        private readonly TransportRepository _transportRepository;
+        private readonly PartRepository _partRepository;
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -27,6 +29,8 @@ namespace Mashinin
         public INumberPlateRepository NumberPlateRepository => _numberPlateRepository ?? new NumberPlateRepository(_context);
         public IExtractedCarDetailRepository ExtractedCarDetailRepository => _extractedCarDetailRepository ?? new ExtractedCarDetailRepository(_context);
         public IExtractedNumberRepository ExtractedNumberRepository => _extractedNumberRepository ?? new ExtractedNumberRepository(_context);
+        public ITransportRepository TransportRepository => _transportRepository ?? new TransportRepository(_context);
+        public IPartRepository PartRepository => _partRepository ?? new PartRepository(_context);
 
 
         public int Commit()

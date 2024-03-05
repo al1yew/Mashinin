@@ -360,10 +360,15 @@ namespace Mashinin.Implementations
 
         public async Task CreateNumbers()
         {
-            List<ExtractedCarDetail> carDetails = await _unitOfWork.ExtractedCarDetailRepository.GetAllAsync();
+            List<ExtractedCarDetail> carDetails = await _unitOfWork.ExtractedCarDetailRepository.GetAllByExAsync(x => x.Id > 36880);
 
             foreach (var carDetail in carDetails)
             {
+                if (await _unitOfWork.ExtractedNumberRepository.DoesExistAsync(x => x.Link == carDetail.Link))
+                {
+                    continue;
+                }
+
                 string url = "https://turbo.az/autos/" + carDetail.Link;
 
                 HttpResponseMessage response = null;

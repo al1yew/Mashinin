@@ -1,21 +1,36 @@
-﻿namespace Mashinin.Entities
+﻿using Mashinin.DTOs.CityDTOs;
+using Mashinin.DTOs.ColorDTOs;
+using Mashinin.DTOs.MakeDTOs;
+using Mashinin.DTOs.ModelDTOs;
+using Mashinin.Entities;
+
+namespace Mashinin.DTOs.TransportDTOs
 {
-    public class Transport : BaseEntity
+    public class TransportGetDTO
     {
+        public int Id { get; set; }
+        public bool IsUpdated { get; set; }
+        public bool IsDeleted { get; set; }
+        public Nullable<DateTime> UpdatedAt { get; set; }
+        public Nullable<DateTime> DeletedAt { get; set; }
+        public Nullable<DateTime> CreatedAt { get; set; }
+
+
         //relations
-        public Make Make { get; set; }
+        public MakeGetDTO Make { get; set; }
         public int MakeId { get; set; }
-        public Model Model { get; set; }
+        public ModelGetDTO Model { get; set; }
         public int ModelId { get; set; }
-        public City City { get; set; }
+        public CityGetDTO City { get; set; }
         public int CityId { get; set; }
-        public Color Color { get; set; }
+        public ColorGetDTO Color { get; set; }
         public int ColorId { get; set; }
         public int ViewCount { get; set; }
         public int ImagesFolderId { get; set; }
-        public List<Price> Prices { get; set; }
-        public List<TransportImage> TransportImages { get; set; }
+        public List<PriceGetDTO> Prices { get; set; }
+        public List<TransportImageGetDTO> TransportImages { get; set; }
         //user
+
 
 
         public int AdType { get; set; } //arenda, prodaja
@@ -86,12 +101,11 @@
         public bool IsFromPerson { get; set; } //adi adam satir
         public bool IsVip { get; set; } //vip olanda
         public Nullable<DateTime> VipExpireDate { get; set; } //esli vip, nado obazatelno sdelat expire date
-        //mi pramo na stranicke dobavleniya budem govorit useru vistavit vip, premium, ili sade. vne zavisimosti ot togo shto on viberet,
-        //mi vse ravno sozdadim elan. no, esli on ne oplatit, vip/premium olmayacag, tipa bank sehifesinnen obratno qayidsa
+                                                              //mi pramo na stranicke dobavleniya budem govorit useru vistavit vip, premium, ili sade. vne zavisimosti ot togo shto on viberet,
+                                                              //mi vse ravno sozdadim elan. no, esli on ne oplatit, vip/premium olmayacag, tipa bank sehifesinnen obratno qayidsa
 
 
-
-        //opcii mashini ---- nado dobavit eshe kakie to
+        #region opcii mashini ---- nado dobavit eshe kakie to
         public bool HasAlloyWheels { get; set; } //legkosplavnie diski
         public bool HasGasCylinder { get; set; } //gaz balon avadanliglari var? esli vibran Qaz, avtomatik set olunsun kak true
         public bool HasFoggyHeadlights { get; set; } //protivotumanki
@@ -127,7 +141,7 @@
         public bool HasIsofix { get; set; } //dla detskix sideniy
         public bool HasPneumaticSuspension { get; set; } //pnevmasi var ya yox
         public bool HasHook { get; set; } //kryuk na zadnem bampere
-
+        #endregion
 
     }
 }

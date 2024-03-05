@@ -130,13 +130,13 @@
     <value>Rənq tapılmadı.</value>
   </data>
   <data name="descriptionRequired" xml:space="preserve">
-    <value>Əlavə məlumat mütləqdir!</value>
+    <value>Əlavə məlumat mütləqdir.</value>
   </data>
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>HexCode lazım olan formata uyğun deyil.</value>
   </data>
   <data name="indexMustBeNumber" xml:space="preserve">
-    <value>Index rəqəm olmalıdır!</value>
+    <value>Index rəqəm olmalıdır.</value>
   </data>
   <data name="makeExists" xml:space="preserve">
     <value>Adı "{0}" və ya TurboAzId="{1}" olan marka mövcuddur.</value>
@@ -151,7 +151,7 @@
     <value>Model tapılmadı.</value>
   </data>
   <data name="nameRequired" xml:space="preserve">
-    <value>Ad mütləqdir!</value>
+    <value>Ad mütləqdir.</value>
   </data>
   <data name="numberPlateExists" xml:space="preserve">
     <value>"{0}" Nömrəsi artıq mövcuddur.</value>
@@ -163,12 +163,15 @@
     <value>Nömrə tapılmadı.</value>
   </data>
   <data name="numberPlateRequired" xml:space="preserve">
-    <value>Nömrə qeyd olunmayıb!</value>
+    <value>Nömrə qeyd olunmayıb.</value>
   </data>
   <data name="objectIsNull" xml:space="preserve">
     <value>Göndərilən obyekt boşdur.</value>
   </data>
   <data name="required" xml:space="preserve">
-    <value>mütləqdir!</value>
+    <value>mütləqdir.</value>
+  </data>
+  <data name="transportNotFound" xml:space="preserve">
+    <value>Maşın tapılmadı.</value>
   </data>
 </root>

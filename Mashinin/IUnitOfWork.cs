@@ -12,6 +12,8 @@ namespace Mashinin
         INumberPlateRepository NumberPlateRepository { get; }
         IExtractedCarDetailRepository ExtractedCarDetailRepository { get; }
         IExtractedNumberRepository ExtractedNumberRepository { get; }
+        ITransportRepository TransportRepository { get; }
+        IPartRepository PartRepository { get; }
 
         Task<int> CommitAsync();
         int Commit();

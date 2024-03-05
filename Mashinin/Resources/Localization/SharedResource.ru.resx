@@ -130,13 +130,13 @@
     <value>Цвет не найден.</value>
   </data>
   <data name="descriptionRequired" xml:space="preserve">
-    <value>Описание отсутствует!</value>
+    <value>Описание отсутствует.</value>
   </data>
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>HexCode не соответствует нужному формату.</value>
   </data>
   <data name="indexMustBeNumber" xml:space="preserve">
-    <value>Index должен быть числом!</value>
+    <value>Index должен быть числом.</value>
   </data>
   <data name="makeExists" xml:space="preserve">
     <value>Марка существует или с именем "{0}", или с TurboAzId="{1}".</value>
@@ -151,7 +151,7 @@
     <value>Модель не найдена.</value>
   </data>
   <data name="nameRequired" xml:space="preserve">
-    <value>Название обязательно!</value>
+    <value>Название обязательно.</value>
   </data>
   <data name="numberPlateExists" xml:space="preserve">
     <value>Номер "{0}" уже существует.</value>
@@ -163,12 +163,15 @@
     <value>Номер не найден.</value>
   </data>
   <data name="numberPlateRequired" xml:space="preserve">
-    <value>Номер отсутствует!</value>
+    <value>Номер отсутствует.</value>
   </data>
   <data name="objectIsNull" xml:space="preserve">
     <value>Отправленный объект пуст.</value>
   </data>
   <data name="required" xml:space="preserve">
-    <value>отсутствует!</value>
+    <value>отсутствует.</value>
+  </data>
+  <data name="transportNotFound" xml:space="preserve">
+    <value>Автомобиль не найден.</value>
   </data>
 </root>
