@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="adTypeRequired" xml:space="preserve">
+    <value>Выберите тип объявления.</value>
+  </data>
+  <data name="bodyTypeMore0" xml:space="preserve">
+    <value>Тип кузова указан неверно.</value>
+  </data>
+  <data name="bodyTypeRequired" xml:space="preserve">
+    <value>Укажите тип кузова.</value>
+  </data>
   <data name="cityExists" xml:space="preserve">
     <value>Город существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}".</value>
   </data>
   <data name="cityNotFound" xml:space="preserve">
     <value>Город не найден.</value>
+  </data>
+  <data name="cityRequired" xml:space="preserve">
+    <value>Выберите город.</value>
   </data>
   <data name="colorExists" xml:space="preserve">
     <value>Цвет существует или с NameAz="{0}", или с NameRu="{1}", или с NameEn="{2}", или с HexCode="{3}".</value>
@@ -129,8 +141,53 @@
   <data name="colorNotFound" xml:space="preserve">
     <value>Цвет не найден.</value>
   </data>
+  <data name="colorRequired" xml:space="preserve">
+    <value>Выберите цвет.</value>
+  </data>
+  <data name="currencyRequired" xml:space="preserve">
+    <value>Выберите валюту.</value>
+  </data>
+  <data name="descriptionMaxLength" xml:space="preserve">
+    <value>Описание должно быть короче 2048 символов.</value>
+  </data>
   <data name="descriptionRequired" xml:space="preserve">
-    <value>Описание отсутствует.</value>
+    <value>Укажите описание.</value>
+  </data>
+  <data name="drivingWheelsMore0" xml:space="preserve">
+    <value>Ведущие колеса указаны неверно.</value>
+  </data>
+  <data name="drivingWheelsRequired" xml:space="preserve">
+    <value>Укажите ведущие колеса.</value>
+  </data>
+  <data name="enginePowerMore0" xml:space="preserve">
+    <value>Мощность двигателя указана неверно.</value>
+  </data>
+  <data name="enginePowerRequired" xml:space="preserve">
+    <value>Укажите мощность двигателя.</value>
+  </data>
+  <data name="engineVolumeMore0" xml:space="preserve">
+    <value>Объем двигателя указан неверно.</value>
+  </data>
+  <data name="engineVolumeRequired" xml:space="preserve">
+    <value>Укажите объем двигателя.</value>
+  </data>
+  <data name="exporterCountryMore0" xml:space="preserve">
+    <value>Страна экспорта выбрана неверно.</value>
+  </data>
+  <data name="exporterCountryRequired" xml:space="preserve">
+    <value>Укажите страну экспорта.</value>
+  </data>
+  <data name="frontPhotoRequired" xml:space="preserve">
+    <value>Добавьте фото спереди.</value>
+  </data>
+  <data name="fuelTypeMore0" xml:space="preserve">
+    <value>Тип топлива выбран неверно.</value>
+  </data>
+  <data name="fuelTypeRequired" xml:space="preserve">
+    <value>Укажите тип топлива.</value>
+  </data>
+  <data name="gasHasCylinder" xml:space="preserve">
+    <value>Если работает на газе, то должен быть балон.</value>
   </data>
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>HexCode не соответствует нужному формату.</value>
@@ -144,14 +201,23 @@
   <data name="makeNotFound" xml:space="preserve">
     <value>Марка не найдена.</value>
   </data>
+  <data name="makeRequired" xml:space="preserve">
+    <value>Выберите марку.</value>
+  </data>
+  <data name="maxMoreMin" xml:space="preserve">
+    <value>Нижняя планка цены должна быть меньше верхней.</value>
+  </data>
   <data name="modelExists" xml:space="preserve">
     <value>Модель существует или с именем "{0}", или с TurboAzId="{1}", или с MakeId="{2}".</value>
   </data>
   <data name="modelNotFound" xml:space="preserve">
     <value>Модель не найдена.</value>
   </data>
+  <data name="modelRequired" xml:space="preserve">
+    <value>Выберите модель.</value>
+  </data>
   <data name="nameRequired" xml:space="preserve">
-    <value>Название обязательно.</value>
+    <value>Укажите название.</value>
   </data>
   <data name="numberPlateExists" xml:space="preserve">
     <value>Номер "{0}" уже существует.</value>
@@ -163,15 +229,93 @@
     <value>Номер не найден.</value>
   </data>
   <data name="numberPlateRequired" xml:space="preserve">
-    <value>Номер отсутствует.</value>
+    <value>Укажите номер.</value>
   </data>
   <data name="objectIsNull" xml:space="preserve">
-    <value>Отправленный объект пуст.</value>
+    <value>Данные отсутствуют.</value>
+  </data>
+  <data name="odometerMore0" xml:space="preserve">
+    <value>Пробег не может быть отрицательным.</value>
+  </data>
+  <data name="odometerRequired" xml:space="preserve">
+    <value>Укажите пробег.</value>
+  </data>
+  <data name="periodOfTimeLess30" xml:space="preserve">
+    <value>Количество дней не может быть больше 30.</value>
+  </data>
+  <data name="periodOfTimeMore1" xml:space="preserve">
+    <value>Количество дней не может быть меньше 1.</value>
+  </data>
+  <data name="periodOfTimeRequired" xml:space="preserve">
+    <value>Укажите количество дней для указанной цены.</value>
+  </data>
+  <data name="personPlacesCountMore0" xml:space="preserve">
+    <value>Количество мест указано неверно.</value>
+  </data>
+  <data name="personPlacesCountRequired" xml:space="preserve">
+    <value>Укажите количество мест.</value>
+  </data>
+  <data name="photosRequired" xml:space="preserve">
+    <value>Добавьте фотографии.</value>
+  </data>
+  <data name="placesForMoto" xml:space="preserve">
+    <value>Мотоцикл имеет максимум 3 места.</value>
+  </data>
+  <data name="priceForRepairMore0" xml:space="preserve">
+    <value>Цена за починку должна быть неотрицательной.</value>
+  </data>
+  <data name="priceForRepairRequired" xml:space="preserve">
+    <value>Для битой машины важно указать цену за починку.</value>
+  </data>
+  <data name="priceRequired" xml:space="preserve">
+    <value>Укажите цену.</value>
+  </data>
+  <data name="rearPhotoRequired" xml:space="preserve">
+    <value>Добавьте фото сзади.</value>
   </data>
   <data name="required" xml:space="preserve">
     <value>отсутствует.</value>
   </data>
+  <data name="transmissionTypeMore0" xml:space="preserve">
+    <value>Тип трансмиссии указан неверно.</value>
+  </data>
+  <data name="transmissionTypeRequired" xml:space="preserve">
+    <value>Укажите тип трансмиссии.</value>
+  </data>
+  <data name="transportationPriceRequired" xml:space="preserve">
+    <value>Введите сумму затрат на перевоз.</value>
+  </data>
   <data name="transportNotFound" xml:space="preserve">
     <value>Автомобиль не найден.</value>
+  </data>
+  <data name="validityRequired" xml:space="preserve">
+    <value>Укажите действительные даты.</value>
+  </data>
+  <data name="vinLength" xml:space="preserve">
+    <value>Vin код должен быть 17 символов в длину.</value>
+  </data>
+  <data name="vinMatches" xml:space="preserve">
+    <value>Формат Vin кода неверный.</value>
+  </data>
+  <data name="vinRequired" xml:space="preserve">
+    <value>Укажите Vin код.</value>
+  </data>
+  <data name="winPriceMaxRequired" xml:space="preserve">
+    <value>Укажите верхнюю планку ценового диапазона.</value>
+  </data>
+  <data name="winPriceMinRequired" xml:space="preserve">
+    <value>Укажите нижнюю планку ценового диапазона.</value>
+  </data>
+  <data name="winPricesMore0" xml:space="preserve">
+    <value>Диапазон цен не может быть отрицательным.</value>
+  </data>
+  <data name="yearLess1900" xml:space="preserve">
+    <value>Выберите год после 1900-ого.</value>
+  </data>
+  <data name="yearMoreToday" xml:space="preserve">
+    <value>Выберите год до нынешнего включительно.</value>
+  </data>
+  <data name="yearRequired" xml:space="preserve">
+    <value>Выберите год.</value>
   </data>
 </root>

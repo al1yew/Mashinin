@@ -13,22 +13,20 @@ namespace Mashinin.Configurations
             builder.Property(x => x.CityId).IsRequired();
             builder.Property(x => x.ImagesFolderId).IsRequired();
             builder.Property(x => x.ColorId).IsRequired();
+            builder.Property(x => x.AdType).IsRequired();
             builder.Property(x => x.Year).IsRequired();
             builder.Property(x => x.Odometer).IsRequired();
+            builder.Property(x => x.PersonPlacesCount).IsRequired();
             builder.Property(x => x.EngineVolume).IsRequired();
-            builder.Property(x => x.EngineCylinderCount).IsRequired();
             builder.Property(x => x.EnginePower).IsRequired();
             builder.Property(x => x.FrontImage).IsRequired();
             builder.Property(x => x.RearImage).IsRequired();
+            builder.Property(x => x.FrontImageLowResolution).IsRequired();
+            builder.Property(x => x.RearImageLowResolution).IsRequired();
             builder.Property(x => x.FuelType).IsRequired();
             builder.Property(x => x.DrivingWheels).IsRequired();
-            builder.Property(x => x.ExporterCountry).IsRequired();
             builder.Property(x => x.TransmissionType).IsRequired();
-            builder.Property(x => x.TransportType).IsRequired();
             builder.Property(x => x.BodyType).IsRequired();
-            builder.Property(x => x.HeadlightType).IsRequired();
-            builder.Property(x => x.FuelSystem).IsRequired();
-            builder.Property(x => x.EngineType).IsRequired();
         }
     }
 }

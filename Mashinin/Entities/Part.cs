@@ -9,8 +9,8 @@
         public bool HasWarranty { get; set; }
         public bool IsOriginal { get; set; }
         public double Price { get; set; }
-        public bool IsForBargain { get; set; }
         public int Currency { get; set; }
+        public bool IsForBargain { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }
         public string KeyWords { get; set; }

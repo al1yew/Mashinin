@@ -15,6 +15,9 @@ namespace Mashinin
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
             modelBuilder.Ignore<BaseEntity>();
+            modelBuilder.Ignore<Part>();
+            modelBuilder.Ignore<PartImage>();
+            modelBuilder.Ignore<PartSpecification>();
 
             modelBuilder.Entity<Transport>()
             .HasOne(t => t.Make)
@@ -41,8 +44,8 @@ namespace Mashinin
         public DbSet<Transport> Transports { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<TransportImage> TransportImages { get; set; }
-        public DbSet<Part> Parts { get; set; }
-        public DbSet<PartSpecification> PartSpecifications { get; set; }
-        public DbSet<PartImage> PartImages { get; set; }
+        //public DbSet<Part> Parts { get; set; }
+        //public DbSet<PartSpecification> PartSpecifications { get; set; }
+        //public DbSet<PartImage> PartImages { get; set; }
     }
 }

@@ -10,6 +10,7 @@
         Korea = 6,
         Russia = 7,
         Japan = 8,
-        Other = 9
+        Geogria = 9,
+        Other = 10
     }
 }

@@ -49,6 +49,7 @@ namespace Mashinin.DTOs.TransportDTOs
         public double TerminalPayables { get; set; }//terminal haqqi
         public double TransportationPriceToBaku { get; set; }//potiden bakiya dashinma
         public double ProfitOfSeller { get; set; } //saticinin xidmet haqqi
+        public int Currency { get; set; } //enum
 
 
 
@@ -78,7 +79,6 @@ namespace Mashinin.DTOs.TransportDTOs
         public int DrivingWheels { get; set; } // vedushie kolesa, perednie, zadnie, ili all wheel; na moto tolko arxa/tam bivayet
         public int ExporterCountry { get; set; } // hansi bazardan gelib / resmi dilerden alinib
         public int TransmissionType { get; set; } // korobka peredach // na moto avto/mexanik/yari avtomat - mojet dobavit shto to dla elektrokarov?
-        public int TransportType { get; set; } // avto, moto, bus, itd 
         public int BodyType { get; set; } //sedan kupe kabrio zad
         public int HeadlightType { get; set; } // tipi far -- proverit ix!!! kakei eshe bivayut?
         public int FuelSystem { get; set; } //injector ili karburator - bolshe dla motociklov
@@ -96,7 +96,6 @@ namespace Mashinin.DTOs.TransportDTOs
         public bool IsImported { get; set; } //xarici bazardan gelen mashin - lazimdi? i tak ukajet stranu otkuda mashina
         public bool IsForBargain { get; set; } //torq umesten ili net
         public bool IsRunning { get; set; } //otur sur yoxsa ubitaya?
-        public bool IsForOrder { get; set; } //sifarishledir
         public bool IsFromSaloon { get; set; } //salon satir
         public bool IsFromPerson { get; set; } //adi adam satir
         public bool IsVip { get; set; } //vip olanda

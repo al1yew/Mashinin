@@ -4,6 +4,7 @@ using Mashinin.DTOs.ColorDTOs;
 using Mashinin.DTOs.MakeDTOs;
 using Mashinin.DTOs.ModelDTOs;
 using Mashinin.DTOs.NumberPlateDTOs;
+using Mashinin.DTOs.TransportDTOs;
 using Mashinin.Implementations;
 using Mashinin.Interfaces;
 using Mashinin.Logger;
@@ -45,6 +46,9 @@ namespace Mashinin.Extensions
 
             services.AddScoped<IValidator<NumberPlateCreateDTO>, NumberPlateCreateDTOValidator>();
             services.AddScoped<IValidator<NumberPlateUpdateDTO>, NumberPlateUpdateDTOValidator>();
+
+            services.AddScoped<IValidator<TransportCreateDTO>, TransportCreateDTOValidator>();
+            //update 
         }
     }
 }

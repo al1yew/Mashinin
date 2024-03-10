@@ -4,5 +4,6 @@
     {
         ForSale = 1,
         ForRent = 2,
+        ForOrder = 3,
     }
 }

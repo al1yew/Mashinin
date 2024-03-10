@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="adTypeRequired" xml:space="preserve">
+    <value>Ad type is required.</value>
+  </data>
+  <data name="bodyTypeMore0" xml:space="preserve">
+    <value>Body type selected wrong.</value>
+  </data>
+  <data name="bodyTypeRequired" xml:space="preserve">
+    <value>Body type is required.</value>
+  </data>
   <data name="cityExists" xml:space="preserve">
     <value>City exists with NameAz="{0}", or NameRu="{1}", or NameEn="{2}".</value>
   </data>
   <data name="cityNotFound" xml:space="preserve">
     <value>City is not found.</value>
+  </data>
+  <data name="cityRequired" xml:space="preserve">
+    <value>City is required.</value>
   </data>
   <data name="colorExists" xml:space="preserve">
     <value>Color exists with NameAz="{0}", or NameRu="{1}", or NameEn="{2}", or HexCode="{3}".</value>
@@ -129,8 +141,53 @@
   <data name="colorNotFound" xml:space="preserve">
     <value>Color is not found.</value>
   </data>
+  <data name="colorRequired" xml:space="preserve">
+    <value>Color is required.</value>
+  </data>
+  <data name="currencyRequired" xml:space="preserve">
+    <value>Currency is required.</value>
+  </data>
+  <data name="descriptionMaxLength" xml:space="preserve">
+    <value>Description must be 2048 chars at most.</value>
+  </data>
   <data name="descriptionRequired" xml:space="preserve">
     <value>Description is required.</value>
+  </data>
+  <data name="drivingWheelsMore0" xml:space="preserve">
+    <value>Driving wheels selected wrong.</value>
+  </data>
+  <data name="drivingWheelsRequired" xml:space="preserve">
+    <value>Driving wheels are required.</value>
+  </data>
+  <data name="enginePowerMore0" xml:space="preserve">
+    <value>Engine power entered wrong.</value>
+  </data>
+  <data name="enginePowerRequired" xml:space="preserve">
+    <value>Engine power is required.</value>
+  </data>
+  <data name="engineVolumeMore0" xml:space="preserve">
+    <value>Engine volume entered wrong.</value>
+  </data>
+  <data name="engineVolumeRequired" xml:space="preserve">
+    <value>Engine volume is required.</value>
+  </data>
+  <data name="exporterCountryMore0" xml:space="preserve">
+    <value>Export country selected wrong.</value>
+  </data>
+  <data name="exporterCountryRequired" xml:space="preserve">
+    <value>Export country is required.</value>
+  </data>
+  <data name="frontPhotoRequired" xml:space="preserve">
+    <value>Front image is required.</value>
+  </data>
+  <data name="fuelTypeMore0" xml:space="preserve">
+    <value>Fuel type entered wrong.</value>
+  </data>
+  <data name="fuelTypeRequired" xml:space="preserve">
+    <value>Fuel type is required.</value>
+  </data>
+  <data name="gasHasCylinder" xml:space="preserve">
+    <value>If works with Gas, then has Gas cylinder</value>
   </data>
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>Invalid hex color code format.</value>
@@ -144,11 +201,20 @@
   <data name="makeNotFound" xml:space="preserve">
     <value>Make is not found.</value>
   </data>
+  <data name="makeRequired" xml:space="preserve">
+    <value>Make is required.</value>
+  </data>
+  <data name="maxMoreMin" xml:space="preserve">
+    <value>Minimum win price must be less than maximum.</value>
+  </data>
   <data name="modelExists" xml:space="preserve">
     <value>Model exists with Name="{0}", or TurboAzId="{1}", or MakeId="{2}".</value>
   </data>
   <data name="modelNotFound" xml:space="preserve">
     <value>Model is not found.</value>
+  </data>
+  <data name="modelRequired" xml:space="preserve">
+    <value>Model is required.</value>
   </data>
   <data name="nameRequired" xml:space="preserve">
     <value>Name is required.</value>
@@ -168,10 +234,88 @@
   <data name="objectIsNull" xml:space="preserve">
     <value>Sent object is null.</value>
   </data>
+  <data name="odometerMore0" xml:space="preserve">
+    <value>Odometer must be positive.</value>
+  </data>
+  <data name="odometerRequired" xml:space="preserve">
+    <value>Odometer is required.</value>
+  </data>
+  <data name="periodOfTimeLess30" xml:space="preserve">
+    <value>Time span must be at most 30 days.</value>
+  </data>
+  <data name="periodOfTimeMore1" xml:space="preserve">
+    <value>Time span must be at least 1 day.</value>
+  </data>
+  <data name="periodOfTimeRequired" xml:space="preserve">
+    <value>Time span is required.</value>
+  </data>
+  <data name="personPlacesCountMore0" xml:space="preserve">
+    <value>Places count entered wrong.</value>
+  </data>
+  <data name="personPlacesCountRequired" xml:space="preserve">
+    <value>Places count is required.</value>
+  </data>
+  <data name="photosRequired" xml:space="preserve">
+    <value>Photos are required.</value>
+  </data>
+  <data name="placesForMoto" xml:space="preserve">
+    <value>Motorcycle can have 3 seats at most.</value>
+  </data>
+  <data name="priceForRepairMore0" xml:space="preserve">
+    <value>Price for repair must be non-negative.</value>
+  </data>
+  <data name="priceForRepairRequired" xml:space="preserve">
+    <value>Price for repair required as the car is damaged.</value>
+  </data>
+  <data name="priceRequired" xml:space="preserve">
+    <value>Price is required.</value>
+  </data>
+  <data name="rearPhotoRequired" xml:space="preserve">
+    <value>Rear image is required.</value>
+  </data>
   <data name="required" xml:space="preserve">
     <value>is required.</value>
   </data>
+  <data name="transmissionTypeMore0" xml:space="preserve">
+    <value>Transmission type selected wrong.</value>
+  </data>
+  <data name="transmissionTypeRequired" xml:space="preserve">
+    <value>Transmission type is required.</value>
+  </data>
+  <data name="transportationPriceRequired" xml:space="preserve">
+    <value>Transportation costs are required.</value>
+  </data>
   <data name="transportNotFound" xml:space="preserve">
     <value>Car is not found.</value>
+  </data>
+  <data name="validityRequired" xml:space="preserve">
+    <value>Validity time span is required.</value>
+  </data>
+  <data name="vinLength" xml:space="preserve">
+    <value>Vin code must be 17 symbols length.</value>
+  </data>
+  <data name="vinMatches" xml:space="preserve">
+    <value>Vin code format is wrong.</value>
+  </data>
+  <data name="vinRequired" xml:space="preserve">
+    <value>Vin code is required.</value>
+  </data>
+  <data name="winPriceMaxRequired" xml:space="preserve">
+    <value>Maximum winning price is required.</value>
+  </data>
+  <data name="winPriceMinRequired" xml:space="preserve">
+    <value>Minimum winning price is required.</value>
+  </data>
+  <data name="winPricesMore0" xml:space="preserve">
+    <value>Prices must be non-negative.</value>
+  </data>
+  <data name="yearLess1900" xml:space="preserve">
+    <value>Year must be after 1900.</value>
+  </data>
+  <data name="yearMoreToday" xml:space="preserve">
+    <value>Year cannot be after current year.</value>
+  </data>
+  <data name="yearRequired" xml:space="preserve">
+    <value>Year is required.</value>
   </data>
 </root>

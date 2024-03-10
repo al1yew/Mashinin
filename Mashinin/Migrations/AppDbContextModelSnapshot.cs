@@ -320,213 +320,6 @@ namespace Mashinin.Migrations
                     b.ToTable("NumberPlates");
                 });
 
-            modelBuilder.Entity("Mashinin.Entities.Part", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoltCount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Capacity")
-                        .HasColumnType("float");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ColdCrankingAmps")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Color")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Dimensions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GroupSize")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("HasThorns")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasWarranty")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Heading")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ImagesFolderId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsForBargain")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsOriginal")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsRunFlat")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("KeyWords")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ManufactureDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Material")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MetaData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PartCategory")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PartSpecificationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PersonalNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Season")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Size")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SpokeCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("PartSpecificationId");
-
-                    b.ToTable("Parts");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsLowResolution")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PartId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PartId");
-
-                    b.ToTable("PartImages");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartSpecification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NameAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameEn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameRu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PartCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PartSpecifications");
-                });
-
             modelBuilder.Entity("Mashinin.Entities.Price", b =>
                 {
                     b.Property<int>("Id")
@@ -534,9 +327,6 @@ namespace Mashinin.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -546,6 +336,18 @@ namespace Mashinin.Migrations
 
                     b.Property<int>("TransportId")
                         .HasColumnType("int");
+
+                    b.Property<double?>("TransportationPrice")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Value")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("WinPriceMax")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("WinPriceMin")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -564,9 +366,6 @@ namespace Mashinin.Migrations
 
                     b.Property<int>("AdType")
                         .HasColumnType("int");
-
-                    b.Property<double>("AuctionPayables")
-                        .HasColumnType("float");
 
                     b.Property<int>("BodyType")
                         .HasColumnType("int");
@@ -590,36 +389,31 @@ namespace Mashinin.Migrations
                     b.Property<int>("DrivingWheels")
                         .HasColumnType("int");
 
-                    b.Property<int>("EngineCylinderCount")
-                        .HasColumnType("int");
-
                     b.Property<int>("EnginePower")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EngineType")
                         .HasColumnType("int");
 
                     b.Property<int>("EngineVolume")
                         .HasColumnType("int");
 
-                    b.Property<int>("ExporterCountry")
+                    b.Property<int?>("ExporterCountry")
                         .HasColumnType("int");
 
                     b.Property<string>("FrontImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("FuelConsumptionAverage")
+                    b.Property<string>("FrontImageLowResolution")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("FuelConsumptionAverage")
                         .HasColumnType("float");
 
-                    b.Property<double>("FuelConsumptionCity")
+                    b.Property<double?>("FuelConsumptionCity")
                         .HasColumnType("float");
 
-                    b.Property<double>("FuelConsumptionHighway")
+                    b.Property<double?>("FuelConsumptionHighway")
                         .HasColumnType("float");
-
-                    b.Property<int>("FuelSystem")
-                        .HasColumnType("int");
 
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
@@ -729,7 +523,7 @@ namespace Mashinin.Migrations
                     b.Property<bool>("HasWirelessCharging")
                         .HasColumnType("bit");
 
-                    b.Property<int>("HeadlightType")
+                    b.Property<int?>("HeadlightType")
                         .HasColumnType("int");
 
                     b.Property<int>("ImagesFolderId")
@@ -753,16 +547,7 @@ namespace Mashinin.Migrations
                     b.Property<bool>("IsForBargain")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsForOrder")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsForParts")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsFromPerson")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsFromSaloon")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsImported")
@@ -800,47 +585,36 @@ namespace Mashinin.Migrations
                     b.Property<double>("Odometer")
                         .HasColumnType("float");
 
-                    b.Property<int>("OwnersCount")
+                    b.Property<int?>("OwnersCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("PeriodOfTime")
+                    b.Property<int?>("PeriodOfTime")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonPlacesCount")
                         .HasColumnType("int");
 
-                    b.Property<double>("PriceForRepair")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ProfitOfSeller")
+                    b.Property<double?>("PriceForRepair")
                         .HasColumnType("float");
 
                     b.Property<string>("RearImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("RentPrice")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TerminalPayables")
-                        .HasColumnType("float");
+                    b.Property<string>("RearImageLowResolution")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TransmissionType")
                         .HasColumnType("int");
 
-                    b.Property<int>("TransportType")
-                        .HasColumnType("int");
-
-                    b.Property<double>("TransportationPriceBySea")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TransportationPriceToBaku")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TransportationPriceToPort")
-                        .HasColumnType("float");
-
                     b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ValidFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ValidUntil")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ViewCount")
@@ -852,12 +626,6 @@ namespace Mashinin.Migrations
 
                     b.Property<DateTime?>("VipExpireDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("WinPriceMax")
-                        .HasColumnType("float");
-
-                    b.Property<double>("WinPriceMin")
-                        .HasColumnType("float");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -886,9 +654,6 @@ namespace Mashinin.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsLowResolution")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -912,36 +677,6 @@ namespace Mashinin.Migrations
                         .IsRequired();
 
                     b.Navigation("Make");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.Part", b =>
-                {
-                    b.HasOne("Mashinin.Entities.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mashinin.Entities.PartSpecification", "PartSpecification")
-                        .WithMany("Parts")
-                        .HasForeignKey("PartSpecificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-
-                    b.Navigation("PartSpecification");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartImage", b =>
-                {
-                    b.HasOne("Mashinin.Entities.Part", "Part")
-                        .WithMany("PartImages")
-                        .HasForeignKey("PartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Part");
                 });
 
             modelBuilder.Entity("Mashinin.Entities.Price", b =>
@@ -1021,16 +756,6 @@ namespace Mashinin.Migrations
             modelBuilder.Entity("Mashinin.Entities.Model", b =>
                 {
                     b.Navigation("Transports");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.Part", b =>
-                {
-                    b.Navigation("PartImages");
-                });
-
-            modelBuilder.Entity("Mashinin.Entities.PartSpecification", b =>
-                {
-                    b.Navigation("Parts");
                 });
 
             modelBuilder.Entity("Mashinin.Entities.Transport", b =>
