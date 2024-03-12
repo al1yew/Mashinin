@@ -6,6 +6,7 @@ using Mashinin.DTOs.ExtractedNumberDTOs;
 using Mashinin.DTOs.MakeDTOs;
 using Mashinin.DTOs.ModelDTOs;
 using Mashinin.DTOs.NumberPlateDTOs;
+using Mashinin.DTOs.TransportDTOs;
 using Mashinin.Entities;
 
 namespace Mashinin.Mappings
@@ -17,9 +18,9 @@ namespace Mashinin.Mappings
             #region Make
 
             CreateMap<Make, MakeGetDTO>()
-                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
                 .ForPath(des => des.Models, src => src.MapFrom(x => x.Models));
 
             CreateMap<MakeCreateDTO, Make>()
@@ -31,9 +32,9 @@ namespace Mashinin.Mappings
             #region Model
 
             CreateMap<Model, ModelGetDTO>()
-                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
                 .ForMember(des => des.Make, src => src.MapFrom(x => x.Make.Name))
                 .ForMember(des => des.MakeTurboAzId, src => src.MapFrom(x => x.Make.TurboAzId))
                 .ForMember(des => des.MakeId, src => src.MapFrom(x => x.Make.Id));
@@ -47,9 +48,9 @@ namespace Mashinin.Mappings
             #region City
 
             CreateMap<City, CityGetDTO>()
-                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")));
 
             CreateMap<CityCreateDTO, City>()
                 .ForMember(des => des.NameRu, src => src.MapFrom(x => x.NameRu.Trim()))
@@ -62,9 +63,9 @@ namespace Mashinin.Mappings
             #region Color
 
             CreateMap<Color, ColorGetDTO>()
-                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")));
 
             CreateMap<ColorCreateDTO, Color>()
                 .ForMember(des => des.NameRu, src => src.MapFrom(x => x.NameRu.Trim()))
@@ -78,9 +79,9 @@ namespace Mashinin.Mappings
             #region NumberPlate
 
             CreateMap<NumberPlate, NumberPlateGetDTO>()
-                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")));
 
             CreateMap<NumberPlateCreateDTO, NumberPlate>()
                 .ForMember(des => des.Value, src => src.MapFrom(x => x.Value.Trim().ToUpperInvariant()))
@@ -92,15 +93,47 @@ namespace Mashinin.Mappings
             #region ExtractedCarDetail
 
             CreateMap<ExtractedCarDetail, ExtractedCarDetailGetDTO>()
-                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")))
-                .ForMember(des => des.PostCreatedAt, src => src.MapFrom(x => x.PostCreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+                .ForMember(des => des.PostCreatedAt, src => src.MapFrom(x => x.PostCreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")));
 
             #endregion
 
             #region ExtractedCarDetail
 
             CreateMap<ExtractedNumber, ExtractedNumberGetDTO>()
-                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy hh:mm:ss")));
+                .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")));
+
+            #endregion
+
+            #region Transport
+
+            CreateMap<Transport, TransportGetDTO>()
+       /*time*/ .ForMember(des => des.CreatedAt, src => src.MapFrom(x => x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+       /*time*/ .ForMember(des => des.DeletedAt, src => src.MapFrom(x => x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+       /*time*/ .ForMember(des => des.UpdatedAt, src => src.MapFrom(x => x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+       /*time*/ .ForMember(des => des.ValidFrom, src => src.MapFrom(x => x.ValidFrom.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+       /*time*/ .ForMember(des => des.ValidUntil, src => src.MapFrom(x => x.ValidUntil.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+       /*time*/ .ForMember(des => des.VipExpireDate, src => src.MapFrom(x => x.VipExpireDate.Value.ToString("dd.MM.yyyy HH:mm:ss")))
+
+       /*make*/ .ForMember(des => des.MakeName, src => src.MapFrom(x => x.Make.Name))
+       /*make*/ .ForMember(des => des.MakeTurboAzId, src => src.MapFrom(x => x.Make.TurboAzId))
+
+       /*model*/.ForMember(des => des.ModelTurboAzId, src => src.MapFrom(x => x.Model.TurboAzId))
+       /*model*/.ForMember(des => des.ModelName, src => src.MapFrom(x => x.Model.Name))
+       /*model*/.ForMember(des => des.ModelClass, src => src.MapFrom(x => x.Model.Class))
+
+       /*city*/ .ForMember(des => des.CityNameAz, src => src.MapFrom(x => x.City.NameAz))
+       /*city*/ .ForMember(des => des.CityNameRu, src => src.MapFrom(x => x.City.NameRu))
+       /*city*/ .ForMember(des => des.CityNameEn, src => src.MapFrom(x => x.City.NameEn))
+
+       /*color*/.ForMember(des => des.ColorHexCode, src => src.MapFrom(x => x.Color.HexCode))
+       /*color*/.ForMember(des => des.ColorNameAz, src => src.MapFrom(x => x.Color.NameAz))
+       /*color*/.ForMember(des => des.ColorNameRu, src => src.MapFrom(x => x.Color.NameRu))
+       /*color*/.ForMember(des => des.ColorNameEn, src => src.MapFrom(x => x.Color.NameEn))
+
+                .ForPath(des => des.Prices, src => src.MapFrom(x => x.Prices))
+                .ForPath(des => des.TransportImages, src => src.MapFrom(x => x.TransportImages));
+
 
             #endregion
         }

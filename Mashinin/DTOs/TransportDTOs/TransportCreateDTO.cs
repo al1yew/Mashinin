@@ -79,13 +79,6 @@ namespace Mashinin.DTOs.TransportDTOs
         public bool IsRunning { get; set; } //otur sur yoxsa ubitaya?
 
 
-        public bool IsVip { get; set; } //vip olanda
-        public Nullable<DateTime> VipExpireDate { get; set; } //esli vip, nado obazatelno sdelat expire date
-                                                              //mi pramo na stranicke dobavleniya budem govorit useru vistavit vip, premium, ili sade. vne zavisimosti ot togo shto on viberet,
-                                                              //mi vse ravno sozdadim elan. no, esli on ne oplatit, vip/premium olmayacag, tipa bank sehifesinnen obratno qayidsa
-
-
-
         #region booleanOptionsOfCar
 
         public bool HasAlloyWheels { get; set; } //legkosplavnie diski

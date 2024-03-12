@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mashinin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240310132105_addedTransportAndRelatedEntities")]
+    [Migration("20240312093603_addedTransportAndRelatedEntities")]
     partial class addedTransportAndRelatedEntities
     {
         /// <inheritdoc />
@@ -559,6 +559,9 @@ namespace Mashinin.Migrations
                     b.Property<bool>("IsNew")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsPremium")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsRepainted")
                         .HasColumnType("bit");
 
@@ -596,6 +599,9 @@ namespace Mashinin.Migrations
 
                     b.Property<int>("PersonPlacesCount")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("PremiumExpireDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("PriceForRepair")
                         .HasColumnType("float");

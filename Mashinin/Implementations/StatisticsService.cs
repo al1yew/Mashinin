@@ -360,7 +360,7 @@ namespace Mashinin.Implementations
 
         public async Task CreateNumbers()
         {
-            List<ExtractedCarDetail> carDetails = await _unitOfWork.ExtractedCarDetailRepository.GetAllByExAsync(x => x.Id > 36880);
+            List<ExtractedCarDetail> carDetails = await _unitOfWork.ExtractedCarDetailRepository.GetAllByExAsync(x => x.Id > 38000);
 
             foreach (var carDetail in carDetails)
             {

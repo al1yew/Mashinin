@@ -62,7 +62,7 @@
         public bool IsNew { get; set; } // mashin yenidir ya yox
         public bool IsCredit { get; set; } //kreditnen verilir ya yox
         public bool IsBarter { get; set; } // barter olunur ya yox
-        public bool IsDamaged { get; set; } // vurulub ya yox, esli damaged, on napishet cenu za pocinku +-
+        public bool IsDamaged { get; set; } // vurulub ya yox, esli da, on napishet cenu za pocinku +-
         public bool IsRepainted { get; set; } // kraskalanib ya yox
         public bool IsForParts { get; set; } // o geder pis gundedi ki, zapcast kimi satilir
         public bool IsImported { get; set; } //xarici bazardan gelen mashin - lazimdi? i tak ukajet stranu otkuda mashina
@@ -75,6 +75,9 @@
         public Nullable<DateTime> VipExpireDate { get; set; } //esli vip, nado obazatelno sdelat expire date
         //mi pramo na stranicke dobavleniya budem govorit useru vistavit vip, premium, ili sade. vne zavisimosti ot togo shto on viberet,
         //mi vse ravno sozdadim elan. no, esli on ne oplatit, vip/premium olmayacag, tipa bank sehifesinnen obratno qayidsa
+
+        public bool IsPremium { get; set; }
+        public Nullable<DateTime> PremiumExpireDate { get; set; } //esli premium, nado obazatelno sdelat expire date
 
 
         #region booleanOptionsOfCar

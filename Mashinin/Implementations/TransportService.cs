@@ -26,7 +26,14 @@ namespace Mashinin.Implementations
 
         private async Task UpdateCache()
         {
-            List<TransportGetDTO> transports = _mapper.Map<List<TransportGetDTO>>(await _unitOfWork.TransportRepository.GetAllAsync());
+            //gde mi delaem get? ya ne dumayu shto nam v List Get nujni vse eti inkludi zad.
+            //nam cisto nujno budet basic data, motor, god, probeg, fotki
+            // no problema v tom shto men listi gerek gonderim fronta, ptm shto filtraciya je est! mi doljni umet delat filtraciyu,
+            // poetomu vse taki vse pridetsa otpravit v front, s inkludami vmeste...
+
+            List<TransportGetDTO> transports = _mapper.Map<List<TransportGetDTO>>(
+                await _unitOfWork.TransportRepository.GetAllAsync(
+                    "Make", "Model", "City", "Color", "Prices", "TransportImages"));
 
             await SetCache(transports);
         }
@@ -46,7 +53,9 @@ namespace Mashinin.Implementations
 
             if (!_memoryCache.TryGetValue(cacheKey, out transports))
             {
-                transports = _mapper.Map<List<TransportGetDTO>>(await _unitOfWork.TransportRepository.GetAllAsync());
+                transports = _mapper.Map<List<TransportGetDTO>>(
+                    await _unitOfWork.TransportRepository.GetAllAsync(
+                        "Make", "Model", "City", "Color", "Prices", "TransportImages"));
 
                 await SetCache(transports);
             }
@@ -56,7 +65,9 @@ namespace Mashinin.Implementations
 
         public async Task<TransportGetDTO> GetAsync(int id)
         {
-            TransportGetDTO transport = _mapper.Map<TransportGetDTO>(await _unitOfWork.TransportRepository.GetAsync(x => x.Id == id));
+            TransportGetDTO transport = _mapper.Map<TransportGetDTO>(
+                await _unitOfWork.TransportRepository.GetAsync(x => x.Id == id,
+                    "Make", "Model", "City", "Color", "Prices", "TransportImages"));
 
             if (transport is null)
                 throw new NotFoundException(_sharedLocalizer["transportNotFound"]);

@@ -6,8 +6,6 @@ namespace Mashinin.DTOs.TransportDTOs
     {
         public int Id { get; set; }
         public string Path { get; set; }
-        public bool IsLowResolution { get; set; }
-        public DateTime CreatedAt { get; set; }
-
+        public Nullable<DateTime> CreatedAt { get; set; }
     }
 }

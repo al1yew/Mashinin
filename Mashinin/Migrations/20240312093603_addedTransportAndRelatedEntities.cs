@@ -63,6 +63,8 @@ namespace Mashinin.Migrations
                     IsRunning = table.Column<bool>(type: "bit", nullable: false),
                     IsVip = table.Column<bool>(type: "bit", nullable: false),
                     VipExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsPremium = table.Column<bool>(type: "bit", nullable: false),
+                    PremiumExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     HasAlloyWheels = table.Column<bool>(type: "bit", nullable: false),
                     HasGasCylinder = table.Column<bool>(type: "bit", nullable: false),
                     HasFoggyHeadlights = table.Column<bool>(type: "bit", nullable: false),

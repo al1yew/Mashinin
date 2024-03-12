@@ -556,6 +556,9 @@ namespace Mashinin.Migrations
                     b.Property<bool>("IsNew")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsPremium")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsRepainted")
                         .HasColumnType("bit");
 
@@ -593,6 +596,9 @@ namespace Mashinin.Migrations
 
                     b.Property<int>("PersonPlacesCount")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("PremiumExpireDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("PriceForRepair")
                         .HasColumnType("float");
