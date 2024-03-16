@@ -4,6 +4,7 @@ using Mashinin.Enums;
 using Mashinin.Localization;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Mashinin.DTOs.TransportDTOs
 {
@@ -137,13 +138,19 @@ namespace Mashinin.DTOs.TransportDTOs
                 .NotEmpty().WithMessage(x => stringLocalizer["colorRequired"]);
 
             RuleFor(x => x.Photos)
-                .NotEmpty().WithMessage(x => stringLocalizer["photosRequired"]);
+                .NotEmpty().WithMessage(x => stringLocalizer["photosRequired"])
+                .Must(photos => photos.All(photo => photo.ContentType.StartsWith("image/"))).WithMessage(x => stringLocalizer["invalidPhotoType"])
+                .Must(photos => photos.All(photo => photo.Length <= 5 * 1024 * 1024)).WithMessage(x => stringLocalizer["photoSizeExceeded"]);
 
             RuleFor(x => x.RearPhoto)
-                .NotEmpty().WithMessage(x => stringLocalizer["rearPhotoRequired"]);
+                .NotEmpty().WithMessage(x => stringLocalizer["rearPhotoRequired"])
+                .Must(x => x.ContentType.StartsWith("image/")).WithMessage(x => stringLocalizer["invalidPhotoType"])
+                .Must(photo => photo.Length <= 5 * 1024 * 1024).WithMessage(x => stringLocalizer["photoSizeExceeded"]);
 
             RuleFor(x => x.FrontPhoto)
-                .NotEmpty().WithMessage(x => stringLocalizer["frontPhotoRequired"]);
+                .NotEmpty().WithMessage(x => stringLocalizer["frontPhotoRequired"])
+                .Must(x => x.ContentType.StartsWith("image/")).WithMessage(x => stringLocalizer["invalidPhotoType"])
+                .Must(photo => photo.Length <= 5 * 1024 * 1024).WithMessage(x => stringLocalizer["photoSizeExceeded"]);
 
             RuleFor(x => x.Currency)
                 .NotEmpty().WithMessage(x => stringLocalizer["currencyRequired"]);

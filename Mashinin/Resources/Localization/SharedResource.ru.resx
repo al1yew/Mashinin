@@ -195,6 +195,9 @@
   <data name="indexMustBeNumber" xml:space="preserve">
     <value>Index должен быть числом.</value>
   </data>
+  <data name="invalidPhotoType" xml:space="preserve">
+    <value>Не подходящий формат для фото.</value>
+  </data>
   <data name="makeExists" xml:space="preserve">
     <value>Марка существует или с именем "{0}", или с TurboAzId="{1}".</value>
   </data>
@@ -254,6 +257,9 @@
   </data>
   <data name="personPlacesCountRequired" xml:space="preserve">
     <value>Укажите количество мест.</value>
+  </data>
+  <data name="photoSizeExceeded" xml:space="preserve">
+    <value>Фото не может быть объемнее 5 мб.</value>
   </data>
   <data name="photosRequired" xml:space="preserve">
     <value>Добавьте фотографии.</value>

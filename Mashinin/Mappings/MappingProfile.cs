@@ -134,6 +134,37 @@ namespace Mashinin.Mappings
                 .ForPath(des => des.Prices, src => src.MapFrom(x => x.Prices))
                 .ForPath(des => des.TransportImages, src => src.MapFrom(x => x.TransportImages));
 
+            CreateMap<TransportCreateDTO, Transport>()
+    /*relation*/.ForMember(des => des.MakeId, src => src.MapFrom(x => x.MakeId))
+    /*relation*/.ForMember(des => des.ModelId, src => src.MapFrom(x => x.ModelId))
+    /*relation*/.ForMember(des => des.CityId, src => src.MapFrom(x => x.CityId))
+    /*relation*/.ForMember(des => des.ColorId, src => src.MapFrom(x => x.ColorId))
+
+                .ForMember(des => des.AdType, src => src.MapFrom(x => x.AdType))
+                .ForMember(des => des.PeriodOfTime, src => src.MapFrom(x => x.PeriodOfTime))
+                .ForMember(des => des.ValidUntil, src => src.MapFrom(x => x.ValidUntil))
+                .ForMember(des => des.ValidFrom, src => src.MapFrom(x => x.ValidFrom))
+
+                .ForMember(des => des.Year, src => src.MapFrom(x => x.Year))
+                .ForMember(des => des.Odometer, src => src.MapFrom(x => x.Odometer))
+                .ForMember(des => des.OwnersCount, src => src.MapFrom(x => x.OwnersCount))
+                .ForMember(des => des.PersonPlacesCount, src => src.MapFrom(x => x.PersonPlacesCount))
+                .ForMember(des => des.Vin, src => src.MapFrom(x => x.Vin))
+                .ForMember(des => des.Description, src => src.MapFrom(x => x.Description))
+                .ForMember(des => des.EngineVolume, src => src.MapFrom(x => x.EngineVolume))
+                .ForMember(des => des.EnginePower, src => src.MapFrom(x => x.EnginePower))
+                .ForMember(des => des.KeyWords, src => src.MapFrom(x => x.KeyWords))
+                .ForMember(des => des.PriceForRepair, src => src.MapFrom(x => x.PriceForRepair))
+                .ForMember(des => des.FuelConsumptionAverage, src => src.MapFrom(x => x.FuelConsumptionAverage))
+                .ForMember(des => des.FuelConsumptionCity, src => src.MapFrom(x => x.FuelConsumptionCity))
+                .ForMember(des => des.FuelConsumptionHighway, src => src.MapFrom(x => x.FuelConsumptionHighway))
+
+                .ForMember(des => des.FuelType, src => src.MapFrom(x => x.FuelType))
+                .ForMember(des => des.DrivingWheels, src => src.MapFrom(x => x.DrivingWheels))
+                .ForMember(des => des.ExporterCountry, src => src.MapFrom(x => x.ExporterCountry))
+                .ForMember(des => des.TransmissionType, src => src.MapFrom(x => x.TransmissionType))
+                .ForMember(des => des.BodyType, src => src.MapFrom(x => x.BodyType))
+                .ForMember(des => des.HeadlightType, src => src.MapFrom(x => x.HeadlightType));
 
             #endregion
         }

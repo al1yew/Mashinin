@@ -195,6 +195,9 @@
   <data name="indexMustBeNumber" xml:space="preserve">
     <value>Index must be a number.</value>
   </data>
+  <data name="invalidPhotoType" xml:space="preserve">
+    <value>Photo format is wrong.</value>
+  </data>
   <data name="makeExists" xml:space="preserve">
     <value>Make exists with Name="{0}" or TurboAzId="{1}".</value>
   </data>
@@ -254,6 +257,9 @@
   </data>
   <data name="personPlacesCountRequired" xml:space="preserve">
     <value>Places count is required.</value>
+  </data>
+  <data name="photoSizeExceeded" xml:space="preserve">
+    <value>Photo's maximum size is 5 mb.</value>
   </data>
   <data name="photosRequired" xml:space="preserve">
     <value>Photos are required.</value>

@@ -195,6 +195,9 @@
   <data name="indexMustBeNumber" xml:space="preserve">
     <value>Index rəqəm olmalıdır.</value>
   </data>
+  <data name="invalidPhotoType" xml:space="preserve">
+    <value>Şəkil səhv formatda yüklənib.</value>
+  </data>
   <data name="makeExists" xml:space="preserve">
     <value>Adı "{0}" və ya TurboAzId="{1}" olan marka mövcuddur.</value>
   </data>
@@ -254,6 +257,9 @@
   </data>
   <data name="personPlacesCountRequired" xml:space="preserve">
     <value>Yer sayını qeyd edin.</value>
+  </data>
+  <data name="photoSizeExceeded" xml:space="preserve">
+    <value>Şəklin həcmi 5 mb-dan az olmalıdır. </value>
   </data>
   <data name="photosRequired" xml:space="preserve">
     <value>Şəkilləri əlavə edin.</value>
