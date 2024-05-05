@@ -4,8 +4,10 @@ using Mashinin.Entities;
 using Mashinin.Exceptions;
 using Mashinin.Interfaces;
 using Mashinin.Localization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace Mashinin.Implementations
 {
@@ -66,6 +68,20 @@ namespace Mashinin.Implementations
 
                 await SetCache(cities);
             }
+
+            return cities;
+        }
+
+        public async Task<List<CityGetDTO>> GetSelectedAsync()
+        {
+            List<CityGetDTO> cities = await _unitOfWork.CityRepository.GetFilteredAsync(
+                selector: city => new CityGetDTO
+                {
+                    Id = city.Id,
+                    Name = EF.Property<string>(city, "Name" + CultureInfo.CurrentCulture.EnglishName.Substring(0, 2)),
+                    CreatedAt = city.CreatedAt
+                }
+            );
 
             return cities;
         }

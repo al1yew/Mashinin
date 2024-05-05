@@ -13,7 +13,7 @@ namespace Mashinin.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            var lang = context.Request.Headers["Accept-Language"].ToString().Split(",")[0];
+            string lang = context.Request.Headers["Accept-Language"].ToString().Split(",")[0];
 
             if (String.IsNullOrEmpty(lang))
             {

@@ -6,6 +6,7 @@ namespace Mashinin.Interfaces
     {
         Task CreateCities();
         Task<List<CityGetDTO>> GetAsync();
+        Task<List<CityGetDTO>> GetSelectedAsync();
         Task<CityGetDTO> GetAsync(int id);
         Task CreateAsync(CityCreateDTO cityCreateDTO);
         Task UpdateAsync(CityUpdateDTO cityUpdateDTO);

@@ -35,6 +35,12 @@ namespace Mashinin.Controllers
             return Ok(await _cityService.GetAsync(id));
         }
 
+        [HttpGet("GetSelected")]
+        public async Task<IActionResult> GetSelected()
+        {
+            return Ok(await _cityService.GetSelectedAsync());
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(CityCreateDTO cityCreateDTO)
         {
