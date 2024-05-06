@@ -22,6 +22,6 @@ namespace Mashinin.IRepositories
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> ex, params string[] includes);
         void Remove(TEntity entity);
         Task<bool> DoesExistAsync(Expression<Func<TEntity, bool>> ex);
-        void UpdateAsync(TEntity entity);
+        void Update(TEntity entity);
     }
 }

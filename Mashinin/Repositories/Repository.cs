@@ -126,7 +126,7 @@ namespace Mashinin.Repositories
             _context.Set<TEntity>().Remove(entity);
         }
 
-        public void UpdateAsync(TEntity entity)
+        public void Update(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
         }
