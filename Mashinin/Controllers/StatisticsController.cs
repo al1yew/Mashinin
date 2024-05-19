@@ -22,10 +22,17 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpGet("CreateNumbers")]
-        public async Task<IActionResult> CreateNumbers()
+        [HttpGet("CreateNumbers/{skip}")]
+        public async Task<IActionResult> CreateNumbers(int? skip)
         {
-            await _statisticsService.CreateNumbers();
+            await _statisticsService.CreateNumbers(skip);
+            return Ok();
+        }
+
+        [HttpGet("RemoveDuplicates")]
+        public async Task<IActionResult> RemoveDuplicates()
+        {
+            await _statisticsService.RemoveDuplicates();
             return Ok();
         }
     }

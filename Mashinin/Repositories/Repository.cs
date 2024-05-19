@@ -126,6 +126,11 @@ namespace Mashinin.Repositories
             _context.Set<TEntity>().Remove(entity);
         }
 
+        public void RemoveRange(List<TEntity> entities)
+        {
+            _context.Set<TEntity>().RemoveRange(entities);
+        }
+
         public void Update(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);

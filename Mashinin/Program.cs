@@ -25,13 +25,13 @@ LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentD
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "VINCODE_API",
-        policy =>
+    options.AddPolicy(name: "Mashinin",
+        builder =>
         {
-            //policy.AllowAnyHeader()
-            //      .AllowAnyMethod()
-            //      .WithOrigins("");
-            policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+            builder.WithOrigins("http://localhost:5173") 
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials(); 
         });
 });
 
@@ -66,6 +66,8 @@ app.ExceptionHandling(logger);
 
 app.UseMiddleware<LanguageMiddleware>();
 
+app.UseCors("Mashinin");
+
 //app.UseStaticFiles();
 
 app.UseRouting();
@@ -73,8 +75,6 @@ app.UseRouting();
 //app.UseAuthentication();
 
 //app.UseAuthorization();
-
-app.UseCors("VINCODE_API");
 
 app.MapControllers();
 

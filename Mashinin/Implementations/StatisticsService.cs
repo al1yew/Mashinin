@@ -1,7 +1,9 @@
 ﻿using HtmlAgilityPack;
 using Mashinin.Entities;
 using Mashinin.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Net;
 using System.Web;
 
 namespace Mashinin.Implementations
@@ -16,9 +18,17 @@ namespace Mashinin.Implementations
             _webHostEnvironment = webHostEnvironment;
         }
 
-        //if car exists and is < 20 days createdAt (ne postcreated a imenno createdat), proyti mimo - uskorit vse 
+
         public async Task CreateCars()
         {
+            List<ExtractedCarDetail> dbCarDetails = await _unitOfWork.ExtractedCarDetailRepository.GetSelectedByExAsync(
+                selector: x => new ExtractedCarDetail
+                {
+                    Link = x.Link,
+                    Id = x.Id,
+                });
+
+
             int[] makeIds = {
                 29,
                 78,
@@ -44,6 +54,7 @@ namespace Mashinin.Implementations
                 89,
                 94,
                 103,
+                104,
                 106,
                 107,
                 114,
@@ -60,6 +71,7 @@ namespace Mashinin.Implementations
                 166,
                 168,
                 169,
+                173,
                 179,
                 182,
                 185,
@@ -84,6 +96,7 @@ namespace Mashinin.Implementations
                 278,
                 283,
                 285,
+                297,
                 305};
 
             double conversionRate = 0;
@@ -143,11 +156,11 @@ namespace Mashinin.Implementations
                     {
                         string res = await response.Content.ReadAsStringAsync();
 
-                        var wwwRootPath = _webHostEnvironment.WebRootPath;
+                        //var wwwRootPath = _webHostEnvironment.WebRootPath;
 
-                        var filePath = Path.Combine(wwwRootPath, "example.html");
+                        //var filePath = Path.Combine(wwwRootPath, "example.html");
 
-                        await System.IO.File.WriteAllTextAsync(filePath, res);
+                        //await System.IO.File.WriteAllTextAsync(filePath, res);
 
                         HtmlDocument htmlDocument = new HtmlDocument();
                         htmlDocument.LoadHtml(res);
@@ -342,29 +355,36 @@ namespace Mashinin.Implementations
                         }
                     }
 
-                    //remove all cars which we already have with this model, simply because we do it each 15th day of the month
-
-                    var dbList = await _unitOfWork.ExtractedCarDetailRepository.GetAllByExAsync(x => x.ModelId == model.Id);
-
-                    foreach (var dbItem in dbList)
-                    {
-                        _unitOfWork.ExtractedCarDetailRepository.Remove(dbItem);
-                        await _unitOfWork.CommitAsync();
-                    }
-
                     await _unitOfWork.ExtractedCarDetailRepository.AddRangeAsync(detailsList);
                     await _unitOfWork.CommitAsync();
                 }
             }
         }
 
-        public async Task CreateNumbers()
+        public async Task CreateNumbers(int? skip)
         {
-            List<ExtractedCarDetail> carDetails = await _unitOfWork.ExtractedCarDetailRepository.GetAllByExAsync(x => x.Id > 38000);
+            List<ExtractedCarDetail> carDetails = await _unitOfWork.ExtractedCarDetailRepository.GetSelectedByExAsync(
+                selector: x => new ExtractedCarDetail
+                {
+                    Link = x.Link,
+                    Id = x.Id,
+                });
+            //cardetails 56876
+            //numbers 56876
 
-            foreach (var carDetail in carDetails)
+            List<ExtractedNumber> dbNums = await _unitOfWork.ExtractedNumberRepository.GetSelectedByExAsync(
+                selector: x => new ExtractedNumber
+                {
+                    Id = x.Id,
+                    Link = x.Link
+                });
+
+            //carDetails.Reverse();
+            carDetails = carDetails.Skip(skip ?? 0).ToList();//102401
+
+            foreach (ExtractedCarDetail carDetail in carDetails)
             {
-                if (await _unitOfWork.ExtractedNumberRepository.DoesExistAsync(x => x.Link == carDetail.Link))
+                if (dbNums.Any(x => x.Link == carDetail.Link))
                 {
                     continue;
                 }
@@ -378,6 +398,19 @@ namespace Mashinin.Implementations
                     response = await client.GetAsync(url);
                 }
 
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    ExtractedCarDetail notFountCarDetail = await _unitOfWork.ExtractedCarDetailRepository.GetAsync(x => x.Link == carDetail.Link);
+
+                    if (notFountCarDetail is not null)
+                    {
+                        _unitOfWork.ExtractedCarDetailRepository.Remove(notFountCarDetail);
+                        await _unitOfWork.CommitAsync();
+                    }
+
+                    continue;
+                }
+
                 if (response.IsSuccessStatusCode)
                 {
                     string html = await response.Content.ReadAsStringAsync();
@@ -386,6 +419,17 @@ namespace Mashinin.Implementations
                     htmlDocument.LoadHtml(html);
 
                     HtmlNodeCollection propertyValueSpans = htmlDocument.DocumentNode.SelectNodes("//span[@class='product-properties__i-value']");
+
+                    if (propertyValueSpans == null)
+                    {
+                        ExtractedCarDetail notFountCarDetail = await _unitOfWork.ExtractedCarDetailRepository.GetAsync(x => x.Link == carDetail.Link);
+
+                        if (notFountCarDetail is not null)
+                        {
+                            _unitOfWork.ExtractedCarDetailRepository.Remove(notFountCarDetail);
+                            await _unitOfWork.CommitAsync();
+                        }
+                    }
 
                     if (propertyValueSpans != null && propertyValueSpans.Count >= 3)
                     {
@@ -421,22 +465,33 @@ namespace Mashinin.Implementations
                                 int makeId = make.Id;
 
                                 Model model = await _unitOfWork.ModelRepository.GetAsync(x => x.TurboAzId == turboAzModelId);
-                                int modelId = model.Id;
 
-                                ExtractedNumber extractedNumber = new ExtractedNumber
+                                if (model is not null)
                                 {
-                                    Link = carDetail.Link,
-                                    CreatedAt = DateTime.UtcNow.AddHours(4),
-                                    TurboAzMakeId = turboAzMakeId,
-                                    TurboAzModelId = turboAzModelId,
-                                    MakeId = makeId,
-                                    ModelId = modelId,
-                                    PhoneNumber = phoneNumber
-                                };
+                                    int modelId = model.Id;
 
-                                if (!await _unitOfWork.ExtractedNumberRepository.DoesExistAsync(x => x.PhoneNumber == phoneNumber))
-                                {
+                                    ExtractedNumber extractedNumber = new ExtractedNumber
+                                    {
+                                        Link = carDetail.Link,
+                                        CreatedAt = DateTime.UtcNow.AddHours(4),
+                                        TurboAzMakeId = turboAzMakeId,
+                                        TurboAzModelId = turboAzModelId,
+                                        MakeId = makeId,
+                                        ModelId = modelId,
+                                        PhoneNumber = phoneNumber
+                                    };
+
                                     await _unitOfWork.ExtractedNumberRepository.AddAsync(extractedNumber);
+                                    await _unitOfWork.CommitAsync();
+                                }
+                            }
+                            else
+                            {
+                                ExtractedCarDetail notFountCarDetail = await _unitOfWork.ExtractedCarDetailRepository.GetAsync(x => x.Link == carDetail.Link);
+
+                                if (notFountCarDetail is not null)
+                                {
+                                    _unitOfWork.ExtractedCarDetailRepository.Remove(notFountCarDetail);
                                     await _unitOfWork.CommitAsync();
                                 }
                             }
@@ -445,6 +500,44 @@ namespace Mashinin.Implementations
                 }
             }
         }
+
+        public async Task RemoveDuplicates()
+        {
+            List<ExtractedCarDetail> details = await _unitOfWork.ExtractedCarDetailRepository.GetSelectedByExAsync(
+                selector: entity => new ExtractedCarDetail
+                {
+                    Id = entity.Id,
+                    Link = entity.Link,
+                    PostCreatedAt = entity.PostCreatedAt,
+                    CreatedAt = entity.CreatedAt
+                });
+
+            var duplicates = details.GroupBy(d => d.Link)
+                        .Where(g => g.Count() > 1)
+                        .SelectMany(g => g.OrderByDescending(x => x.CreatedAt).Skip(1)).ToList();
+
+            _unitOfWork.ExtractedCarDetailRepository.RemoveRange(duplicates);
+            await _unitOfWork.CommitAsync();
+
+            List<ExtractedNumber> numbers = await _unitOfWork.ExtractedNumberRepository.GetSelectedByExAsync(
+               selector: entity => new ExtractedNumber
+               {
+                   Id = entity.Id,
+                   //PhoneNumber = entity.PhoneNumber,
+                   Link = entity.Link,
+                   CreatedAt = entity.CreatedAt
+               });
+
+            var duplicateNumbers = numbers.GroupBy(d => d.Link)
+                        .Where(g => g.Count() > 1)
+                        .SelectMany(g => g.OrderByDescending(x => x.CreatedAt).Skip(1)).ToList();
+
+            _unitOfWork.ExtractedNumberRepository.RemoveRange(duplicateNumbers);
+            await _unitOfWork.CommitAsync();
+        }
+
+
+
 
         //public async Task<List<ExtractedCarDetail>> GetAveragePriceForOneCar(GetStatisticsDTO getStatisticsDTO)
         //{
@@ -530,171 +623,6 @@ namespace Mashinin.Implementations
         //    return cars;
         //}
 
-        //private async Task<List<ExtractedCarDetail>> GetStatisticsAsync(int makeId, int modelId, double pageCount, int turboAzMakeId, int turboAzModelId, int bodyType, int fuelType, int engineVolume, double odometer, int transmissionType, int year)
-        //{
-        //    HtmlNodeCollection productElements = new HtmlNodeCollection(null);
 
-        //    for (int i = 1; i <= pageCount; i++)
-        //    {
-        //        var parameters = new Dictionary<string, string>
-        //        {
-        //            { "q[make][]", turboAzMakeId.ToString() },
-        //            { "q[model][]", turboAzModelId.ToString() },
-        //            //{ "q[category][]", bodyType.ToString() },
-        //            //{ "q[year_from]", (year - 2).ToString() },
-        //            //{ "q[year_to]", (year + 2).ToString() },
-        //            //{ "q[fuel_type][]", fuelType.ToString() },
-        //            //{ "q[transmission][]", transmissionType.ToString() },
-        //            //{ "q[engine_volume_from]", (engineVolume - 100).ToString() },
-        //            //{ "q[engine_volume_to]", (engineVolume + 100).ToString() },
-        //            //{ "q[mileage_from]", (odometer - 20000).ToString() },
-        //            //{ "q[mileage_to]", (odometer + 20000).ToString() },
-        //            //{ "q[crashed]", "1" },
-        //            //{ "q[painted]", "1" },
-        //            //{ "q[for_spare_parts]", "0" },
-        //            { "page", i.ToString() },
-        //        };
-
-        //        string queryString = string.Join("&", parameters.Select(kvp => $"{HttpUtility.UrlEncode(kvp.Key)}={HttpUtility.UrlEncode(kvp.Value)}"));
-
-        //        string url = "https://turbo.az/autos?" + queryString;
-
-        //        HttpResponseMessage response = null;
-
-        //        using (HttpClient client = new HttpClient())
-        //        {
-        //            response = await client.GetAsync(url);
-        //        }
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            string responseHTML = await response.Content.ReadAsStringAsync();
-
-        //            HtmlDocument htmlDocument = new HtmlDocument();
-        //            htmlDocument.LoadHtml(responseHTML);
-
-        //            HtmlNode productsTitleDiv = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='products-title']");
-
-        //            if (productsTitleDiv == null)
-        //                return new List<ExtractedCarDetail>();
-
-        //            HtmlNode tzContainerDiv = productsTitleDiv.SelectSingleNode("./ancestor::div[@class='tz-container']");
-
-        //            HtmlNode productsDiv = tzContainerDiv.SelectSingleNode(".//div[@class='products']");
-
-        //            HtmlNodeCollection carCards = productsDiv.SelectNodes(".//div[contains(concat(' ', normalize-space(@class), ' '), ' products-i ')]");
-
-        //            foreach (HtmlNode carCard in carCards)
-        //            {
-        //                productElements.Add(carCard);
-        //            }
-        //        }
-        //    }
-
-        //    List<ExtractedCarDetail> detailsList = new List<ExtractedCarDetail>();
-
-        //    if (productElements != null)
-        //    {
-        //        foreach (var productElement in productElements)
-        //        {
-        //            var priceElement = productElement.SelectSingleNode(".//div[@class='product-price']");
-        //            var attributesElement = productElement.SelectSingleNode(".//div[@class='products-i__attributes products-i__bottom-text']");
-
-        //            var priceText = priceElement?.InnerText.Trim();
-        //            var attributesText = attributesElement?.InnerText.Trim();
-
-        //            string datetimeText = productElement.SelectSingleNode(".//div[@class='products-i__datetime']")?.InnerText.Trim();
-        //            DateTime postCreatedAt;
-
-        //            if (datetimeText.Contains("bugün"))
-        //            {
-        //                string time = datetimeText.Substring(datetimeText.LastIndexOf(' ') + 1);
-
-        //                DateTime today = DateTime.Today;
-
-        //                postCreatedAt = DateTime.ParseExact(today.ToString("dd.MM.yyyy") + " " + time, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
-        //            }
-        //            else if (datetimeText.Contains("dünən"))
-        //            {
-        //                string time = datetimeText.Substring(datetimeText.LastIndexOf(' ') + 1);
-
-        //                DateTime yesterday = DateTime.Today.AddDays(-1);
-
-        //                postCreatedAt = DateTime.ParseExact(yesterday.ToString("dd.MM.yyyy") + " " + time, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
-        //            }
-        //            else
-        //            {
-        //                string[] dateTimeParts = datetimeText.Split(',');
-
-        //                string datePart = dateTimeParts[1].Trim();
-
-        //                string[] dateParts = datePart.Split(new[] { '.', ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
-        //                int day = int.Parse(dateParts[0]);
-        //                int month = int.Parse(dateParts[1]);
-        //                int postYear = int.Parse(dateParts[2]);
-        //                int hour = int.Parse(dateParts[3]);
-        //                int minute = int.Parse(dateParts[4]);
-
-        //                postCreatedAt = new DateTime(postYear, month, day, hour, minute, 0);
-        //            }
-
-        //            if (!string.IsNullOrEmpty(priceText) && !string.IsNullOrEmpty(attributesText))
-        //            {
-        //                var priceParts = priceText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-        //                string priceValue = priceParts[0].Replace(" ", "") + priceParts[1];
-        //                string currency = priceParts[priceParts.Length - 1];
-        //                bool isUsd = (currency.ToLowerInvariant() == "usd" || currency == "$");
-
-        //                var attributeParts = attributesText.Split(',');
-
-        //                string carYear = attributeParts[0].Trim();
-        //                string engineCapacityText = attributeParts[1].Replace("L", "").Trim();
-        //                string odometerText = attributeParts[2].Replace(" km", "").Replace(" ", "").Trim();
-
-        //                double carEngineCapacity = double.Parse(engineCapacityText) * 100;
-        //                int carOdometer = int.Parse(odometerText);
-
-        //                detailsList.Add(new ExtractedCarDetail
-        //                {
-        //                    Price = isUsd ? double.Parse(priceValue) * 1.7 : double.Parse(priceValue),
-        //                    Currency = "AZN",
-        //                    Year = int.Parse(carYear),
-        //                    EngineVolume = (int)carEngineCapacity,
-        //                    Odometer = carOdometer,
-        //                    PostCreatedAt = postCreatedAt,
-        //                    CreatedAt = DateTime.UtcNow.AddHours(4),
-        //                    MakeId = makeId,
-        //                    ModelId = modelId,
-        //                    TurboAzModelId = turboAzModelId,
-        //                    TurboAzMakeId = turboAzMakeId,
-        //                    IsNew = carOdometer <= 100
-        //                });
-        //            }
-        //        }
-        //    }
-        //    //bomba. nado prosto kodu geyretli hala getirmek, databazaya elave etmek hamsini, i periodiceski obnovlat.
-        //    //i budem davat useru statistiku na osnove svoiyey dati
-        //    await AddToDatabase(detailsList);
-
-        //    return detailsList;
-        //}
-
-        //private async Task AddToDatabase(List<ExtractedCarDetail> detailsList)
-        //{
-        //    List<ExtractedCarDetail> dbDetailsList = await _unitOfWork.ExtractedCarDetailRepository.GetAllAsync();
-
-        //    foreach (ExtractedCarDetail detail in dbDetailsList)
-        //    {
-        //        if (DateTime.UtcNow.Day - detail.CreatedAt.Value.Day > 1)
-        //        {
-        //            _unitOfWork.ExtractedCarDetailRepository.Remove(detail);
-        //            await _unitOfWork.CommitAsync();
-        //        }
-        //    }
-
-        //    await _unitOfWork.ExtractedCarDetailRepository.AddRangeAsync(detailsList);
-        //    await _unitOfWork.CommitAsync();
-        //}
     }
 }

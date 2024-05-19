@@ -9,7 +9,7 @@ namespace Mashinin.DTOs.ModelDTOs
         public int Id { get; set; }
         public int TurboAzId { get; set; }
         public string Name { get; set; }
-        public string Class { get; set; }
+        public string? Class { get; set; }
         public int MakeId { get; set; }
     }
 
