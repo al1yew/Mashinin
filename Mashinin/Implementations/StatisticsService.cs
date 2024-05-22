@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using Mashinin.DTOs.StatisticsDTOs;
 using Mashinin.Entities;
 using Mashinin.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -499,6 +500,46 @@ namespace Mashinin.Implementations
                     }
                 }
             }
+        }
+
+        public async Task<List<ForPythonDTO>> GetValuesForPython()
+        {
+            List<ExtractedCarDetail> carDetails = await _unitOfWork.ExtractedCarDetailRepository
+                .GetSelectedByExAsync(carDetail => new ExtractedCarDetail
+                {
+                    Id = carDetail.Id,
+                    Link = carDetail.Link,
+                    MakeId = carDetail.MakeId,
+                    ModelId = carDetail.ModelId,
+                    IsNew = carDetail.IsNew,
+                });
+
+            List<ExtractedNumber> numbers = await _unitOfWork.ExtractedNumberRepository
+                .GetSelectedByExAsync(number => new ExtractedNumber
+                {
+                    Id = number.Id,
+                    Link = number.Link,
+                    MakeId = number.MakeId,
+                    ModelId = number.ModelId,
+                    PhoneNumber = number.PhoneNumber,
+                });
+
+            List<Make> makes = await _unitOfWork.MakeRepository.GetAllAsync();
+            List<Model> models = await _unitOfWork.ModelRepository.GetAllAsync();
+
+            List<ForPythonDTO> mergedList = (from carDetail in carDetails
+                                             join number in numbers on carDetail.Link equals number.Link
+                                             select new ForPythonDTO
+                                             {
+                                                 Make = makes.Find(x => x.Id == carDetail.MakeId).Name,
+                                                 Model = models.Find(x => x.Id == carDetail.ModelId).Name,
+                                                 Link = carDetail.Link,
+                                                 PhoneNumber = "+994516600016", /*number.PhoneNumber*/
+                                                 IsNew = carDetail.IsNew,
+                                                 ModelCount = carDetails.Where(x => x.ModelId == carDetail.ModelId).Count(),
+                                             }).ToList();
+
+            return mergedList;
         }
 
         public async Task RemoveDuplicates()

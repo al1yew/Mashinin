@@ -35,5 +35,11 @@ namespace Mashinin.Controllers
             await _statisticsService.RemoveDuplicates();
             return Ok();
         }
+
+        [HttpGet("GetValuesForPython")]
+        public async Task<IActionResult> GetValuesForPython()
+        {
+            return Ok(await _statisticsService.GetValuesForPython());
+        }
     }
 }
