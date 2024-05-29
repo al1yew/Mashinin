@@ -27,32 +27,33 @@ namespace Mashinin.Implementations
             _sharedLocalizer = sharedLocalizer;
         }
 
-        public async Task CreateCities()
+        private async Task<List<CityGetDTO>> RetrieveCities()
         {
-            //string json = "in txt file";
-
-            //List<City> cities = new List<City>();
-
-            //cities = JsonConvert.DeserializeObject<List<City>>(json);
-
-            //foreach (City city in cities)
-            //{
-            //    city.CreatedAt = DateTime.UtcNow.AddHours(4);
-            //}
-
-            //await _unitOfWork.CityRepository.AddRangeAsync(cities);
-            //await _unitOfWork.CommitAsync();
+            return await _unitOfWork.CityRepository.GetFilteredAsync(
+                x => new CityGetDTO
+                {
+                    Id = x.Id,
+                    Name = EF.Property<string>(x, "Name" + CultureInfo.CurrentCulture.EnglishName.Substring(0, 2)),
+                    CreatedAt = x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    DeletedAt = x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    IsDeleted = x.IsDeleted,
+                    IsUpdated = x.IsUpdated,
+                    UpdatedAt = x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")
+                }
+            );
         }
+
         private async Task UpdateCache()
         {
-            List<CityGetDTO> cities = _mapper.Map<List<CityGetDTO>>(await _unitOfWork.CityRepository.GetAllAsync());
+            List<CityGetDTO> cities = await RetrieveCities();
 
             await SetCache(cities);
         }
+
         private async Task SetCache(List<CityGetDTO> cities)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
                     .SetPriority(CacheItemPriority.Low);
 
             _memoryCache.Set(cacheKey, cities, cacheEntryOptions);
@@ -64,7 +65,7 @@ namespace Mashinin.Implementations
 
             if (!_memoryCache.TryGetValue(cacheKey, out cities))
             {
-                cities = _mapper.Map<List<CityGetDTO>>(await _unitOfWork.CityRepository.GetAllAsync());
+                cities = await RetrieveCities();
 
                 await SetCache(cities);
             }
@@ -72,23 +73,10 @@ namespace Mashinin.Implementations
             return cities;
         }
 
-        public async Task<List<CityGetDTO>> GetSelectedAsync()
-        {
-            List<CityGetDTO> cities = await _unitOfWork.CityRepository.GetFilteredAsync(
-                selector: city => new CityGetDTO
-                {
-                    Id = city.Id,
-                    Name = EF.Property<string>(city, "Name" + CultureInfo.CurrentCulture.EnglishName.Substring(0, 2)),
-                    CreatedAt = city.CreatedAt
-                }
-            );
-
-            return cities;
-        }
-
         public async Task<CityGetDTO> GetAsync(int id)
         {
-            CityGetDTO city = _mapper.Map<CityGetDTO>(await _unitOfWork.CityRepository.GetAsync(x => x.Id == id));
+            List<CityGetDTO> cities = await GetAsync();
+            CityGetDTO city = cities.FirstOrDefault(x => x.Id == id);
 
             if (city is null)
                 throw new NotFoundException(_sharedLocalizer["cityNotFound"]);
@@ -107,7 +95,12 @@ namespace Mashinin.Implementations
             x.NameEn.ToLower() == cityCreateDTO.NameEn.Trim().ToLower());
 
             if (cityExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["cityExists"], cityCreateDTO.NameAz, cityCreateDTO.NameRu, cityCreateDTO.NameEn));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["cityExists"],
+                    cityCreateDTO.NameAz,
+                    cityCreateDTO.NameRu,
+                    cityCreateDTO.NameEn)
+                    );
 
             City city = _mapper.Map<City>(cityCreateDTO);
 
@@ -116,12 +109,14 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task UpdateAsync(CityUpdateDTO cityUpdateDTO)
+        public async Task UpdateAsync(int id, CityUpdateDTO cityUpdateDTO)
         {
+            if (id != cityUpdateDTO.Id)
+                throw new BadRequestException(_sharedLocalizer["idsAreDifferent"]);
+
             if (cityUpdateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
-            //id is not the same, but values are the same
             bool cityExists = await _unitOfWork.CityRepository.DoesExistAsync(x =>
             x.Id != cityUpdateDTO.Id &&
             (x.NameAz.ToLower() == cityUpdateDTO.NameAz.Trim().ToLower() ||
@@ -129,7 +124,12 @@ namespace Mashinin.Implementations
             x.NameEn.ToLower() == cityUpdateDTO.NameEn.Trim().ToLower()));
 
             if (cityExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["cityExists"], cityUpdateDTO.NameAz, cityUpdateDTO.NameRu, cityUpdateDTO.NameEn));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["cityExists"],
+                    cityUpdateDTO.NameAz,
+                    cityUpdateDTO.NameRu,
+                    cityUpdateDTO.NameEn)
+                    );
 
             City city = await _unitOfWork.CityRepository.GetAsync(x => x.Id == cityUpdateDTO.Id);
 
@@ -174,7 +174,7 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task DeleteForeverAsync(int id)
+        public async Task PermanentDelete(int id)
         {
             City city = await _unitOfWork.CityRepository.GetAsync(x => x.Id == id);
 

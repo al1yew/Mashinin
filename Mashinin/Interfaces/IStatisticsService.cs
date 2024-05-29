@@ -1,4 +1,5 @@
-﻿using Mashinin.DTOs.StatisticsDTOs;
+﻿using Mashinin.DTOs.ExtractedCarDetailDTOs;
+using Mashinin.DTOs.StatisticsDTOs;
 
 namespace Mashinin.Interfaces
 {

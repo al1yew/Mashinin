@@ -192,6 +192,9 @@
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>Invalid hex color code format.</value>
   </data>
+  <data name="idsAreDifferent" xml:space="preserve">
+    <value>Id's are different.</value>
+  </data>
   <data name="indexMustBeNumber" xml:space="preserve">
     <value>Index must be a number.</value>
   </data>

@@ -1,4 +1,6 @@
-﻿using HtmlAgilityPack;
+﻿using AutoMapper;
+using HtmlAgilityPack;
+using Mashinin.DTOs.ExtractedCarDetailDTOs;
 using Mashinin.DTOs.StatisticsDTOs;
 using Mashinin.Entities;
 using Mashinin.Interfaces;
@@ -13,10 +15,12 @@ namespace Mashinin.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public StatisticsService(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        private readonly IMapper _mapper;
+        public StatisticsService(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
+            _mapper = mapper;
         }
 
 
@@ -370,8 +374,6 @@ namespace Mashinin.Implementations
                     Link = x.Link,
                     Id = x.Id,
                 });
-            //cardetails 56876
-            //numbers 56876
 
             List<ExtractedNumber> dbNums = await _unitOfWork.ExtractedNumberRepository.GetSelectedByExAsync(
                 selector: x => new ExtractedNumber

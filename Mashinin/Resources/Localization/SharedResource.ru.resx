@@ -192,6 +192,9 @@
   <data name="hexCodeNotMatchFormat" xml:space="preserve">
     <value>HexCode не соответствует нужному формату.</value>
   </data>
+  <data name="idsAreDifferent" xml:space="preserve">
+    <value>Id отличаются.</value>
+  </data>
   <data name="indexMustBeNumber" xml:space="preserve">
     <value>Index должен быть числом.</value>
   </data>

@@ -15,13 +15,9 @@ namespace Mashinin.Controllers
             _cityService = cityService;
         }
 
-        [HttpGet("CreateCities")]
-        public async Task<IActionResult> CreateCities()
-        {
-            await _cityService.CreateCities();
+        //all additional methods will be here
+        //return only !SsDeleted ones, or return all and show !isDeleted in front end
 
-            return Ok();
-        }
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -35,12 +31,6 @@ namespace Mashinin.Controllers
             return Ok(await _cityService.GetAsync(id));
         }
 
-        [HttpGet("GetSelected")]
-        public async Task<IActionResult> GetSelected()
-        {
-            return Ok(await _cityService.GetSelectedAsync());
-        }
-
         [HttpPost]
         public async Task<IActionResult> Post(CityCreateDTO cityCreateDTO)
         {
@@ -48,10 +38,10 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(CityUpdateDTO cityUpdateDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, CityUpdateDTO cityUpdateDTO)
         {
-            await _cityService.UpdateAsync(cityUpdateDTO);
+            await _cityService.UpdateAsync(id, cityUpdateDTO);
             return Ok();
         }
 
@@ -62,17 +52,17 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpOptions("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Restore(int id)
         {
             await _cityService.RestoreAsync(id);
             return Ok();
         }
 
-        [HttpHead("{id}")] // does not return exception message
-        public async Task<IActionResult> Head(int id)
+        [HttpDelete("PermanentDelete/{id}")]
+        public async Task<IActionResult> PermanentDelete(int id)
         {
-            await _cityService.DeleteForeverAsync(id);
+            await _cityService.PermanentDelete(id);
             return Ok();
         }
 
