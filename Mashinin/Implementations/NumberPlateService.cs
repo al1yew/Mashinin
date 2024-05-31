@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Mashinin.DTOs.CityDTOs;
 using Mashinin.DTOs.NumberPlateDTOs;
 using Mashinin.Entities;
 using Mashinin.Exceptions;
@@ -25,16 +26,37 @@ namespace Mashinin.Implementations
             _sharedLocalizer = sharedLocalizer;
         }
 
+
+        private async Task<List<NumberPlateGetDTO>> RetrieveNumberPlates()
+        {
+            return await _unitOfWork.NumberPlateRepository.GetFilteredAsync(
+                x => new NumberPlateGetDTO
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    IsForBargain = x.IsForBargain,
+                    Value = x.Value,
+                    ViewCount = x.ViewCount,
+                    CreatedAt = x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    DeletedAt = x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    IsDeleted = x.IsDeleted,
+                    IsUpdated = x.IsUpdated,
+                    UpdatedAt = x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")
+                }
+            );
+        }
+
         private async Task UpdateCache()
         {
-            List<NumberPlateGetDTO> numberPlates = _mapper.Map<List<NumberPlateGetDTO>>(await _unitOfWork.NumberPlateRepository.GetAllAsync());
+            List<NumberPlateGetDTO> numberPlates = await RetrieveNumberPlates();
 
             await SetCache(numberPlates);
         }
+
         private async Task SetCache(List<NumberPlateGetDTO> numberPlates)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
                     .SetPriority(CacheItemPriority.Low);
 
             _memoryCache.Set(cacheKey, numberPlates, cacheEntryOptions);
@@ -46,7 +68,7 @@ namespace Mashinin.Implementations
 
             if (!_memoryCache.TryGetValue(cacheKey, out numberPlates))
             {
-                numberPlates = _mapper.Map<List<NumberPlateGetDTO>>(await _unitOfWork.NumberPlateRepository.GetAllAsync());
+                numberPlates = await RetrieveNumberPlates();
 
                 await SetCache(numberPlates);
             }
@@ -56,7 +78,8 @@ namespace Mashinin.Implementations
 
         public async Task<NumberPlateGetDTO> GetAsync(int id)
         {
-            NumberPlateGetDTO numberPlate = _mapper.Map<NumberPlateGetDTO>(await _unitOfWork.NumberPlateRepository.GetAsync(x => x.Id == id));
+            List<NumberPlateGetDTO> numberPlates = await GetAsync();
+            NumberPlateGetDTO numberPlate = numberPlates.FirstOrDefault(x => x.Id == id);
 
             if (numberPlate is null)
                 throw new NotFoundException(_sharedLocalizer["numberPlateNotFound"]);
@@ -73,7 +96,10 @@ namespace Mashinin.Implementations
             x.Value.ToLower() == numberPlateCreateDTO.Value.Trim().ToLower());
 
             if (numberPlateExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["numberPlateExists"], numberPlateCreateDTO.Value));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["numberPlateExists"],
+                    numberPlateCreateDTO.Value)
+                    );
 
             NumberPlate numberPlate = _mapper.Map<NumberPlate>(numberPlateCreateDTO);
 
@@ -82,18 +108,23 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task UpdateAsync(NumberPlateUpdateDTO numberPlateUpdateDTO)
+        public async Task UpdateAsync(int id, NumberPlateUpdateDTO numberPlateUpdateDTO)
         {
+            if (id != numberPlateUpdateDTO.Id)
+                throw new BadRequestException(_sharedLocalizer["idsAreDifferent"]);
+
             if (numberPlateUpdateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
-            //id is not the same, but values are the same
             bool numberPlateExists = await _unitOfWork.NumberPlateRepository.DoesExistAsync(x =>
             x.Id != numberPlateUpdateDTO.Id &&
             x.Value.ToLower() == numberPlateUpdateDTO.Value.Trim().ToLower());
 
             if (numberPlateExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["numberPlateExists"], numberPlateUpdateDTO.Value));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["numberPlateExists"],
+                    numberPlateUpdateDTO.Value)
+                    );
 
             NumberPlate numberPlate = await _unitOfWork.NumberPlateRepository.GetAsync(x => x.Id == numberPlateUpdateDTO.Id);
 

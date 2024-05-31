@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Mashinin.DTOs.CityDTOs;
 using Mashinin.DTOs.ColorDTOs;
 using Mashinin.Entities;
 using Mashinin.Exceptions;
 using Mashinin.Interfaces;
 using Mashinin.Localization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace Mashinin.Implementations
 {
@@ -25,16 +28,34 @@ namespace Mashinin.Implementations
             _sharedLocalizer = sharedLocalizer;
         }
 
+        private async Task<List<ColorGetDTO>> RetrieveColors()
+        {
+            return await _unitOfWork.ColorRepository.GetFilteredAsync(
+                x => new ColorGetDTO
+                {
+                    Id = x.Id,
+                    Name = EF.Property<string>(x, "Name" + CultureInfo.CurrentCulture.EnglishName.Substring(0, 2)),
+                    CreatedAt = x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    DeletedAt = x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    IsDeleted = x.IsDeleted,
+                    IsUpdated = x.IsUpdated,
+                    HexCode = x.HexCode,
+                    UpdatedAt = x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")
+                }
+            );
+        }
+
         private async Task UpdateCache()
         {
-            List<ColorGetDTO> colors = _mapper.Map<List<ColorGetDTO>>(await _unitOfWork.ColorRepository.GetAllAsync());
+            List<ColorGetDTO> colors = await RetrieveColors();
 
             await SetCache(colors);
         }
+
         private async Task SetCache(List<ColorGetDTO> colors)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
                     .SetPriority(CacheItemPriority.Low);
 
             _memoryCache.Set(cacheKey, colors, cacheEntryOptions);
@@ -46,7 +67,7 @@ namespace Mashinin.Implementations
 
             if (!_memoryCache.TryGetValue(cacheKey, out colors))
             {
-                colors = _mapper.Map<List<ColorGetDTO>>(await _unitOfWork.ColorRepository.GetAllAsync());
+                colors = await RetrieveColors();
 
                 await SetCache(colors);
             }
@@ -56,13 +77,15 @@ namespace Mashinin.Implementations
 
         public async Task<ColorGetDTO> GetAsync(int id)
         {
-            ColorGetDTO color = _mapper.Map<ColorGetDTO>(await _unitOfWork.ColorRepository.GetAsync(x => x.Id == id));
+            List<ColorGetDTO> colors = await GetAsync();
+            ColorGetDTO color = colors.FirstOrDefault(x => x.Id == id);
 
             if (color is null)
                 throw new NotFoundException(_sharedLocalizer["colorNotFound"]);
 
             return color;
         }
+
 
         public async Task CreateAsync(ColorCreateDTO colorCreateDTO)
         {
@@ -76,7 +99,13 @@ namespace Mashinin.Implementations
             x.HexCode.ToLower() == colorCreateDTO.HexCode.Trim().ToLower());
 
             if (colorExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["colorExists"], colorCreateDTO.NameAz, colorCreateDTO.NameRu, colorCreateDTO.NameEn, colorCreateDTO.HexCode));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["colorExists"],
+                    colorCreateDTO.NameAz,
+                    colorCreateDTO.NameRu,
+                    colorCreateDTO.NameEn,
+                    colorCreateDTO.HexCode)
+                    );
 
             Color color = _mapper.Map<Color>(colorCreateDTO);
 
@@ -85,12 +114,14 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task UpdateAsync(ColorUpdateDTO colorUpdateDTO)
+        public async Task UpdateAsync(int id, ColorUpdateDTO colorUpdateDTO)
         {
+            if (id != colorUpdateDTO.Id)
+                throw new BadRequestException(_sharedLocalizer["idsAreDifferent"]);
+
             if (colorUpdateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
-            //id is not the same, but values are the same
             bool colorExists = await _unitOfWork.ColorRepository.DoesExistAsync(x =>
             x.Id != colorUpdateDTO.Id &&
             (x.NameAz.ToLower() == colorUpdateDTO.NameAz.Trim().ToLower() ||
@@ -145,7 +176,7 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task DeleteForeverAsync(int id)
+        public async Task PermanentDelete(int id)
         {
             Color color = await _unitOfWork.ColorRepository.GetAsync(x => x.Id == id);
 

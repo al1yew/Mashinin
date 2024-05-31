@@ -15,6 +15,9 @@ namespace Mashinin.Controllers
             _colorService = colorService;
         }
 
+        //all additional methods will be here
+        //return only !IsDeleted ones, or return all and show !isDeleted in front end
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -34,10 +37,10 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(ColorUpdateDTO colorUpdateDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, ColorUpdateDTO colorUpdateDTO)
         {
-            await _colorService.UpdateAsync(colorUpdateDTO);
+            await _colorService.UpdateAsync(id, colorUpdateDTO);
             return Ok();
         }
 
@@ -48,17 +51,17 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpOptions("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Restore(int id)
         {
             await _colorService.RestoreAsync(id);
             return Ok();
         }
 
-        [HttpHead("{id}")] // does not return exception message
-        public async Task<IActionResult> Head(int id)
+        [HttpDelete("PermanentDelete/{id}")]
+        public async Task<IActionResult> PermanentDelete(int id)
         {
-            await _colorService.DeleteForeverAsync(id);
+            await _colorService.PermanentDelete(id);
             return Ok();
         }
     }

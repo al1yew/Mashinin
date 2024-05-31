@@ -7,7 +7,7 @@ namespace Mashinin.Interfaces
         Task<List<NumberPlateGetDTO>> GetAsync();
         Task<NumberPlateGetDTO> GetAsync(int id);
         Task CreateAsync(NumberPlateCreateDTO numberPlateCreateDTO);
-        Task UpdateAsync(NumberPlateUpdateDTO numberPlateUpdateDTO);
+        Task UpdateAsync(int id, NumberPlateUpdateDTO numberPlateUpdateDTO);
         Task DeleteAsync(int id);
         Task RestoreAsync(int id);
     }

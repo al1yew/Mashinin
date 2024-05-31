@@ -34,6 +34,11 @@ namespace Mashinin.Extensions
                         statuscode = 400;
                         errormsg = feature.Error.Message;
                     }
+                    else if (feature.Error is UnprocessableEntityException)
+                    {
+                        statuscode = 422;
+                        errormsg = feature.Error.Message;
+                    }
 
                     context.Response.StatusCode = statuscode;
                     await context.Response.WriteAsync(errormsg);

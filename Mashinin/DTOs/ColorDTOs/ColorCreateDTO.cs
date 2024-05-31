@@ -20,10 +20,10 @@ namespace Mashinin.DTOs.ColorDTOs
              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
 
             RuleFor(x => x.NameEn)
-              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "NameEn " + stringLocalizer["required"]);
 
             RuleFor(x => x.NameRu)
-              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "NameRu " + stringLocalizer["required"]);
 
             RuleFor(x => x.HexCode)
               .NotEmpty().WithMessage(x => "HexCode " + stringLocalizer["required"])

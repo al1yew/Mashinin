@@ -18,7 +18,9 @@ namespace Mashinin.DTOs.MakeDTOs
                  .NotEmpty().WithMessage(x => stringLocalizer["nameRequired"]);
 
             RuleFor(x => x.TurboAzId)
-                .NotEmpty().WithMessage(x => "TurboAzId " + stringLocalizer["required"]);
+                .NotEmpty().WithMessage(x => "TurboAzId " + stringLocalizer["required"])
+                .GreaterThan(0).WithMessage(x => "TurboAzId " + stringLocalizer["mustBeGreaterThanZero"]);
+
         }
     }
 }

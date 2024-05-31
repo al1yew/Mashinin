@@ -23,38 +23,39 @@ namespace Mashinin.Implementations
             _memoryCache = memoryCache;
             _sharedLocalizer = sharedLocalizer;
         }
-
-        public async Task CreateModels()
+        private async Task<List<ModelGetDTO>> RetrieveModels()
         {
-            //string json = "find in txt file";
-            //List<Model> models = new List<Model>();
-
-            //models = JsonConvert.DeserializeObject<List<Model>>(json);
-
-            //foreach (Model model in models)
-            //{
-            //    model.CreatedAt = DateTime.UtcNow.AddHours(4);
-
-            //    Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.TurboAzId == model.MakeId);
-
-            //    model.MakeId = 0;
-
-            //    model.Make = make;
-            //}
-
-            //await _unitOfWork.ModelRepository.AddRangeAsync(models);
-            //await _unitOfWork.CommitAsync();
+            return await _unitOfWork.ModelRepository.GetFilteredAsync(
+                x => new ModelGetDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    TurboAzId = x.TurboAzId,
+                    CreatedAt = x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    DeletedAt = x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    IsDeleted = x.IsDeleted,
+                    IsUpdated = x.IsUpdated,
+                    UpdatedAt = x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    Class = x.Class,
+                    Make = x.Make.Name,
+                    MakeId = x.MakeId,
+                    MakeTurboAzId = x.Make.TurboAzId
+                },
+                includes: "Make"
+            );
         }
+
         private async Task UpdateCache()
         {
-            List<ModelGetDTO> models = _mapper.Map<List<ModelGetDTO>>(await _unitOfWork.ModelRepository.GetAllAsync());
+            List<ModelGetDTO> models = await RetrieveModels();
 
             await SetCache(models);
         }
+
         private async Task SetCache(List<ModelGetDTO> models)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
                     .SetPriority(CacheItemPriority.Low);
 
             _memoryCache.Set(cacheKey, models, cacheEntryOptions);
@@ -66,7 +67,7 @@ namespace Mashinin.Implementations
 
             if (!_memoryCache.TryGetValue(cacheKey, out models))
             {
-                models = _mapper.Map<List<ModelGetDTO>>(await _unitOfWork.ModelRepository.GetAllAsync("Make"));
+                models = await RetrieveModels();
 
                 await SetCache(models);
             }
@@ -74,16 +75,10 @@ namespace Mashinin.Implementations
             return models;
         }
 
-        public async Task<List<ModelGetDTO>> GetByMakeIdAsync(int id)
-        {
-            List<ModelGetDTO> models = _mapper.Map<List<ModelGetDTO>>(await _unitOfWork.ModelRepository.GetAllByExAsync(x => x.MakeId == id, "Make"));
-
-            return models;
-        }
-
         public async Task<ModelGetDTO> GetAsync(int id)
         {
-            ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id, "Make"));
+            List<ModelGetDTO> models = await GetAsync();
+            ModelGetDTO model = models.FirstOrDefault(x => x.Id == id);
 
             if (model is null)
                 throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
@@ -91,9 +86,19 @@ namespace Mashinin.Implementations
             return model;
         }
 
+
+        public async Task<List<ModelGetDTO>> GetByMakeIdAsync(int id)
+        {
+            List<ModelGetDTO> models = await GetAsync();
+            models = models.Where(x => x.MakeId == id).ToList();
+
+            return models;
+        }
+
         public async Task<ModelGetDTO> GetByTurboAzIdAsync(int id)
         {
-            ModelGetDTO model = _mapper.Map<ModelGetDTO>(await _unitOfWork.ModelRepository.GetAsync(x => x.TurboAzId == id, "Make"));
+            List<ModelGetDTO> models = await GetAsync();
+            ModelGetDTO model = models.FirstOrDefault(x => x.TurboAzId == id);
 
             if (model is null)
                 throw new NotFoundException(_sharedLocalizer["modelNotFound"]);
@@ -116,7 +121,12 @@ namespace Mashinin.Implementations
             x.TurboAzId == modelCreateDTO.TurboAzId);
 
             if (modelExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["modelExists"], modelCreateDTO.Name, modelCreateDTO.TurboAzId, modelCreateDTO.MakeId));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["modelExists"],
+                    modelCreateDTO.Name,
+                    modelCreateDTO.TurboAzId,
+                    modelCreateDTO.MakeId)
+                    );
 
             Model model = _mapper.Map<Model>(modelCreateDTO);
 
@@ -125,8 +135,11 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task UpdateAsync(ModelUpdateDTO modelUpdateDTO)
+        public async Task UpdateAsync(int id, ModelUpdateDTO modelUpdateDTO)
         {
+            if (id != modelUpdateDTO.Id)
+                throw new BadRequestException(_sharedLocalizer["idsAreDifferent"]);
+
             if (modelUpdateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
@@ -135,14 +148,18 @@ namespace Mashinin.Implementations
             if (!makeExists)
                 throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
 
-            //id is not the same, but values are the same
             bool modelExists = await _unitOfWork.ModelRepository.DoesExistAsync(x =>
             x.Id != modelUpdateDTO.Id &&
             (x.Name.ToLower() == modelUpdateDTO.Name.Trim().ToLower() ||
             x.TurboAzId == modelUpdateDTO.TurboAzId));
 
             if (modelExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["modelExists"], modelUpdateDTO.Name, modelUpdateDTO.TurboAzId, modelUpdateDTO.MakeId));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["modelExists"],
+                    modelUpdateDTO.Name,
+                    modelUpdateDTO.TurboAzId,
+                    modelUpdateDTO.MakeId)
+                    );
 
             Model model = await _unitOfWork.ModelRepository.GetAsync(x => x.Id == modelUpdateDTO.Id);
 
@@ -187,7 +204,7 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task DeleteForeverAsync(int id)
+        public async Task PermanentDelete(int id)
         {
             Model model = await _unitOfWork.ModelRepository.GetAsync(x => x.Id == id);
 

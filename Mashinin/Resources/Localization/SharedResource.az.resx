@@ -222,6 +222,9 @@
   <data name="modelRequired" xml:space="preserve">
     <value>Modeli seçin.</value>
   </data>
+  <data name="mustBeGreaterThanZero" xml:space="preserve">
+    <value>0-dan çox olmalıdır. </value>
+  </data>
   <data name="nameRequired" xml:space="preserve">
     <value>Adı qeyd edin.</value>
   </data>

@@ -15,13 +15,8 @@ namespace Mashinin.Controllers
             _makeService = makeService;
         }
 
-        [HttpGet("CreateMakes")]
-        public async Task<IActionResult> CreateMakes()
-        {
-            await _makeService.CreateMakes();
-
-            return Ok();
-        }
+        //all additional methods will be here
+        //return only !IsDeleted ones, or return all and show !isDeleted in front end
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -48,10 +43,10 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(MakeUpdateDTO makeUpdateDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, MakeUpdateDTO makeUpdateDTO)
         {
-            await _makeService.UpdateAsync(makeUpdateDTO);
+            await _makeService.UpdateAsync(id, makeUpdateDTO);
             return Ok();
         }
 
@@ -62,17 +57,17 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpOptions("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Restore(int id)
         {
             await _makeService.RestoreAsync(id);
             return Ok();
         }
 
-        [HttpHead("{id}")] // does not return exception message
-        public async Task<IActionResult> Head(int id)
+        [HttpDelete("PermanentDelete/{id}")]
+        public async Task<IActionResult> PermanentDelete(int id)
         {
-            await _makeService.DeleteForeverAsync(id);
+            await _makeService.PermanentDelete(id);
             return Ok();
         }
     }

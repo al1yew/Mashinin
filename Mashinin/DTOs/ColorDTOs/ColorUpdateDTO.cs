@@ -17,19 +17,21 @@ namespace Mashinin.DTOs.ColorDTOs
         public ColorUpdateDTOValidator(IStringLocalizer<SharedResource> stringLocalizer)
         {
             RuleFor(x => x.Id)
-              .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"])
+              .GreaterThan(0).WithMessage(x => "Id " + stringLocalizer["mustBeGreaterThanZero"]);
 
             RuleFor(x => x.NameAz)
              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
 
             RuleFor(x => x.NameEn)
-              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "NameEn " + stringLocalizer["required"]);
 
             RuleFor(x => x.NameRu)
-              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "NameRu " + stringLocalizer["required"]);
 
             RuleFor(x => x.HexCode)
-              .NotEmpty().WithMessage(x => "HexCode " + stringLocalizer["required"]);
+             .NotEmpty().WithMessage(x => "HexCode " + stringLocalizer["required"])
+             .Matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$").WithMessage(x => stringLocalizer["hexCodeNotMatchFormat"]);
         }
     }
 }

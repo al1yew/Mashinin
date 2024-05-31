@@ -16,13 +16,16 @@ namespace Mashinin.DTOs.MakeDTOs
         public MakeUpdateDTOValidator(IStringLocalizer<SharedResource> stringLocalizer)
         {
             RuleFor(x => x.Id)
-               .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"]);
+               .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"])
+               .GreaterThan(0).WithMessage(x => "Id " + stringLocalizer["mustBeGreaterThanZero"]);
+
 
             RuleFor(x => x.Name)
                   .NotEmpty().WithMessage(x => stringLocalizer["nameRequired"]);
 
             RuleFor(x => x.TurboAzId)
-                .NotEmpty().WithMessage(x => "TurboAzId " + stringLocalizer["required"]);
+                .NotEmpty().WithMessage(x => "TurboAzId " + stringLocalizer["required"])
+                .GreaterThan(0).WithMessage(x => "TurboAzId " + stringLocalizer["mustBeGreaterThanZero"]);
         }
     }
 }

@@ -17,16 +17,17 @@ namespace Mashinin.DTOs.CityDTOs
         public CityUpdateDTOValidator(IStringLocalizer<SharedResource> stringLocalizer)
         {
             RuleFor(x => x.Id)
-              .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"])
+              .GreaterThan(0).WithMessage(x => "Id " + stringLocalizer["mustBeGreaterThanZero"]);
 
             RuleFor(x => x.NameAz)
               .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
 
             RuleFor(x => x.NameEn)
-              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "NameEn " + stringLocalizer["required"]);
 
             RuleFor(x => x.NameRu)
-              .NotEmpty().WithMessage(x => "NameAz " + stringLocalizer["required"]);
+              .NotEmpty().WithMessage(x => "NameRu " + stringLocalizer["required"]);
         }
     }
 }

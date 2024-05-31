@@ -15,19 +15,8 @@ namespace Mashinin.Controllers
             _modelService = modelService;
         }
 
-        [HttpGet("CreateModels")]
-        public async Task<IActionResult> CreateModels()
-        {
-            await _modelService.CreateModels();
-
-            return Ok();
-        }
-
-        [HttpGet("GetByMakeId/{id}")]
-        public async Task<IActionResult> GetByMakeId(int id)
-        {
-            return Ok(await _modelService.GetByMakeIdAsync(id));
-        }
+        //all additional methods will be here
+        //return only !IsDeleted ones, or return all and show !isDeleted in front end
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -39,6 +28,12 @@ namespace Mashinin.Controllers
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _modelService.GetAsync(id));
+        }
+
+        [HttpGet("GetByMakeId/{id}")]
+        public async Task<IActionResult> GetByMakeId(int id)
+        {
+            return Ok(await _modelService.GetByMakeIdAsync(id));
         }
 
         [HttpGet("GetByTurboAzId/{id}")]
@@ -54,10 +49,10 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(ModelUpdateDTO modelUpdateDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, ModelUpdateDTO modelUpdateDTO)
         {
-            await _modelService.UpdateAsync(modelUpdateDTO);
+            await _modelService.UpdateAsync(id, modelUpdateDTO);
             return Ok();
         }
 
@@ -68,17 +63,17 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpOptions("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Restore(int id)
         {
             await _modelService.RestoreAsync(id);
             return Ok();
         }
 
-        [HttpHead("{id}")] // does not return exception message
-        public async Task<IActionResult> Head(int id)
+        [HttpDelete("PermanentDelete/{id}")]
+        public async Task<IActionResult> PermanentDelete(int id)
         {
-            await _modelService.DeleteForeverAsync(id);
+            await _modelService.PermanentDelete(id);
             return Ok();
         }
     }

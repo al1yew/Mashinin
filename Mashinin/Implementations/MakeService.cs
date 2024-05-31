@@ -25,32 +25,34 @@ namespace Mashinin.Implementations
             _sharedLocalizer = sharedLocalizer;
         }
 
-        public async Task CreateMakes()
+        private async Task<List<MakeGetDTO>> RetrieveMakes()
         {
-            //string json = "find in txt";
-
-            //List<Make> makes = new List<Make>();
-
-            //makes = JsonConvert.DeserializeObject<List<Make>>(json);
-
-            //foreach (Make make in makes)
-            //{
-            //    make.CreatedAt = DateTime.UtcNow.AddHours(4);
-            //}
-
-            //await _unitOfWork.MakeRepository.AddRangeAsync(makes);
-            //await _unitOfWork.CommitAsync();
+            return await _unitOfWork.MakeRepository.GetFilteredAsync(
+                x => new MakeGetDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    TurboAzId = x.TurboAzId,
+                    CreatedAt = x.CreatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    DeletedAt = x.DeletedAt.Value.ToString("dd.MM.yyyy HH:mm:ss"),
+                    IsDeleted = x.IsDeleted,
+                    IsUpdated = x.IsUpdated,
+                    UpdatedAt = x.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm:ss")
+                }
+            );
         }
+
         private async Task UpdateCache()
         {
-            List<MakeGetDTO> makes = _mapper.Map<List<MakeGetDTO>>(await _unitOfWork.MakeRepository.GetAllAsync());
+            List<MakeGetDTO> makes = await RetrieveMakes();
 
             await SetCache(makes);
         }
+
         private async Task SetCache(List<MakeGetDTO> makes)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
                     .SetPriority(CacheItemPriority.Low);
 
             _memoryCache.Set(cacheKey, makes, cacheEntryOptions);
@@ -62,7 +64,7 @@ namespace Mashinin.Implementations
 
             if (!_memoryCache.TryGetValue(cacheKey, out makes))
             {
-                makes = _mapper.Map<List<MakeGetDTO>>(await _unitOfWork.MakeRepository.GetAllAsync());
+                makes = await RetrieveMakes();
 
                 await SetCache(makes);
             }
@@ -72,7 +74,8 @@ namespace Mashinin.Implementations
 
         public async Task<MakeGetDTO> GetAsync(int id)
         {
-            MakeGetDTO make = _mapper.Map<MakeGetDTO>(await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id, "Models"));
+            List<MakeGetDTO> makes = await GetAsync();
+            MakeGetDTO make = makes.FirstOrDefault(x => x.Id == id);
 
             if (make is null)
                 throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
@@ -82,7 +85,8 @@ namespace Mashinin.Implementations
 
         public async Task<MakeGetDTO> GetByTurboAzIdAsync(int id)
         {
-            MakeGetDTO make = _mapper.Map<MakeGetDTO>(await _unitOfWork.MakeRepository.GetAsync(x => x.TurboAzId == id, "Models"));
+            List<MakeGetDTO> makes = await GetAsync();
+            MakeGetDTO make = makes.FirstOrDefault(x => x.TurboAzId == id);
 
             if (make is null)
                 throw new NotFoundException(_sharedLocalizer["makeNotFound"]);
@@ -95,13 +99,16 @@ namespace Mashinin.Implementations
             if (makeCreateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
-            //we cant have the same turboazid or name
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x =>
             x.Name.ToLower() == makeCreateDTO.Name.Trim().ToLower() ||
             x.TurboAzId == makeCreateDTO.TurboAzId);
 
             if (makeExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["makeExists"], makeCreateDTO.Name, makeCreateDTO.TurboAzId));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["makeExists"],
+                    makeCreateDTO.Name,
+                    makeCreateDTO.TurboAzId)
+                    );
 
             Make make = _mapper.Map<Make>(makeCreateDTO);
 
@@ -110,19 +117,25 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task UpdateAsync(MakeUpdateDTO makeUpdateDTO)
+        public async Task UpdateAsync(int id, MakeUpdateDTO makeUpdateDTO)
         {
+            if (id != makeUpdateDTO.Id)
+                throw new BadRequestException(_sharedLocalizer["idsAreDifferent"]);
+
             if (makeUpdateDTO is null)
                 throw new BadRequestException(_sharedLocalizer["objectIsNull"]);
 
-            //id is not the same, but values are present in database. we cannot update make to a make which exists
             bool makeExists = await _unitOfWork.MakeRepository.DoesExistAsync(x =>
             x.Id != makeUpdateDTO.Id &&
             (x.Name.ToLower() == makeUpdateDTO.Name.Trim().ToLower() ||
             x.TurboAzId == makeUpdateDTO.TurboAzId));
 
             if (makeExists)
-                throw new RecordDuplicateException(string.Format(_sharedLocalizer["makeExists"], makeUpdateDTO.Name, makeUpdateDTO.TurboAzId));
+                throw new RecordDuplicateException(
+                    string.Format(_sharedLocalizer["makeExists"],
+                    makeUpdateDTO.Name,
+                    makeUpdateDTO.TurboAzId)
+                    );
 
             Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == makeUpdateDTO.Id);
 
@@ -166,7 +179,7 @@ namespace Mashinin.Implementations
             await UpdateCache();
         }
 
-        public async Task DeleteForeverAsync(int id)
+        public async Task PermanentDelete(int id)
         {
             Make make = await _unitOfWork.MakeRepository.GetAsync(x => x.Id == id);
 

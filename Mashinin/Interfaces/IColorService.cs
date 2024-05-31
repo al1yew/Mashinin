@@ -7,9 +7,9 @@ namespace Mashinin.Interfaces
         Task<List<ColorGetDTO>> GetAsync();
         Task<ColorGetDTO> GetAsync(int id);
         Task CreateAsync(ColorCreateDTO colorCreateDTO);
-        Task UpdateAsync(ColorUpdateDTO colorUpdateDTO);
+        Task UpdateAsync(int id, ColorUpdateDTO colorUpdateDTO);
         Task DeleteAsync(int id);
         Task RestoreAsync(int id);
-        Task DeleteForeverAsync(int id);
+        Task PermanentDelete(int id);
     }
 }

@@ -8,8 +8,7 @@ namespace Mashinin.Controllers
     [ApiController]
     public class NumberPlateController : ControllerBase
     {
-       private readonly INumberPlateService _numberPlateService;
-
+        private readonly INumberPlateService _numberPlateService;
         public NumberPlateController(INumberPlateService numberPlateService)
         {
             _numberPlateService = numberPlateService;
@@ -34,10 +33,10 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(NumberPlateUpdateDTO numberPlateUpdateDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, NumberPlateUpdateDTO numberPlateUpdateDTO)
         {
-            await _numberPlateService.UpdateAsync(numberPlateUpdateDTO);
+            await _numberPlateService.UpdateAsync(id, numberPlateUpdateDTO);
             return Ok();
         }
 
@@ -48,7 +47,7 @@ namespace Mashinin.Controllers
             return Ok();
         }
 
-        [HttpOptions("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Restore(int id)
         {
             await _numberPlateService.RestoreAsync(id);

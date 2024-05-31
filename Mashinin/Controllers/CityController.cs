@@ -16,7 +16,7 @@ namespace Mashinin.Controllers
         }
 
         //all additional methods will be here
-        //return only !SsDeleted ones, or return all and show !isDeleted in front end
+        //return only !IsDeleted ones, or return all and show !isDeleted in front end
 
 
         [HttpGet]

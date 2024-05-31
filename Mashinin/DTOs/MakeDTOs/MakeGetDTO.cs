@@ -7,7 +7,6 @@ namespace Mashinin.DTOs.MakeDTOs
         public int Id { get; set; }
         public int TurboAzId { get; set; }
         public string Name { get; set; }
-        public List<ModelGetDTO> Models { get; set; }
         public bool IsUpdated { get; set; }
         public bool IsDeleted { get; set; }
         public string UpdatedAt { get; set; }

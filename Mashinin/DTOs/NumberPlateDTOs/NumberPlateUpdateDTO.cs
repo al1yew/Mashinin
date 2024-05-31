@@ -17,7 +17,8 @@ namespace Mashinin.DTOs.NumberPlateDTOs
         public NumberPlateUpdateDTOValidator(IStringLocalizer<SharedResource> stringLocalizer)
         {
             RuleFor(x => x.Id)
-                .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"]);
+                .NotEmpty().WithMessage(x => "Id " + stringLocalizer["required"])
+                .GreaterThan(0).WithMessage(x => "Id " + stringLocalizer["mustBeGreaterThanZero"]);
 
             RuleFor(x => x.Value)
               .NotEmpty().WithMessage(x => stringLocalizer["numberPlateRequired"])
